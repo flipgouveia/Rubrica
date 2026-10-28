@@ -1,0 +1,325 @@
+/*
+ * Rubrica design tokens (CONTRACTS §7 / ARCHITECTURE "UI" row).
+ *
+ * Imported once, globally, from src/index.css:
+ *   @import "tailwindcss"; @import "./tokens/tokens.css";
+ *
+ * Structure:
+ *   1. `@theme` — static tokens (fonts, radii, shadows) that don't change
+ *      between light/dark. These are baked into Tailwind's generated
+ *      utilities at build time, and also override a few of Tailwind's own
+ *      defaults (--font-sans, --font-mono, --radius-sm/md/lg) so plain
+ *      utilities like `font-sans` or `rounded-md` already carry Rubrica's
+ *      identity with no extra classes needed.
+ *   2. Raw `--rubrica-*` custom properties — the actual light/dark palette
+ *      values, redefined under a `prefers-color-scheme: dark` media query
+ *      and under an explicit `[data-theme="dark"]` attribute (for a future
+ *      manual theme toggle to override the OS setting in either direction).
+ *   3. `@theme inline` — maps each raw `--rubrica-*` value onto a Tailwind
+ *      `--color-*` theme key *by reference* (not baked at build time), which
+ *      is what makes `bg-accent`, `text-muted-text`, etc. resolve to
+ *      whichever theme is active at runtime instead of a value frozen at
+ *      build time. This is the documented Tailwind v4 pattern for
+ *      runtime-switchable theme colors.
+ *
+ * Fonts: Bricolage Grotesque (display/headings), Instrument Sans
+ * (body/UI — mapped onto Tailwind's own --font-sans), JetBrains Mono
+ * (monospace/code — mapped onto --font-mono). No @font-face is declared
+ * yet: no .woff2 files exist in the repo yet, and Vite's CSS pipeline
+ * resolves/rewrites `url()` references in stylesheets at *build* time —
+ * an @font-face pointing at a file that doesn't exist yet breaks
+ * `vite build` (Rollup import-resolution error), not just the runtime
+ * fallback. Until real font files land, the font-family stacks below list
+ * the brand name first and a system fallback second, so every element
+ * already renders correctly via the fallback today. When a follow-up task
+ * drops the real files into `src/tokens/fonts/`, add the @font-face rules
+ * below the palette (a template is sketched as a comment at the bottom of
+ * this file) — no other change is needed, since the family names already
+ * match everywhere they're used.
+ */
+
+@theme {
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", monospace;
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  --shadow-menu: 0 8px 24px -4px rgb(0 0 0 / 0.18), 0 2px 8px -2px rgb(0 0 0 / 0.12);
+  --shadow-dialog: 0 24px 48px -12px rgb(0 0 0 / 0.35), 0 8px 24px -8px rgb(0 0 0 / 0.2);
+}
+
+:root {
+  color-scheme: light;
+
+  /* ---- Light theme palette (default) ---- */
+  --rubrica-background: #faf7f5;
+  --rubrica-surface: #ffffff;
+  --rubrica-surface-raised: #ffffff;
+  --rubrica-overlay: rgb(36 28 26 / 0.45);
+  --rubrica-border: #e7dfda;
+  --rubrica-border-strong: #d3c6be;
+  --rubrica-text: #241c1a;
+  --rubrica-muted-text: #6f625b;
+  --rubrica-accent: #a3243a;
+  --rubrica-accent-hover: #8a1e31;
+  --rubrica-accent-foreground: #fff6f2;
+  --rubrica-danger: #b3261e;
+  --rubrica-danger-foreground: #fff5f3;
+  --rubrica-success: #1c6e4a;
+  --rubrica-success-foreground: #f1fbf5;
+  --rubrica-focus-ring: #a3243a;
+  /* The light-theme accent in both themes, for what is drawn over the always-light page bitmap. */
+  --rubrica-accent-page: #a3243a;
+
+  /*
+   * Search highlights (search v2, docs/mockups/search-v2.html). Used as plain custom properties
+   * (`var(--search-t1)`), not Tailwind colors. t1..t4 = highlight per term position (~50 %
+   * opacity, drawn over the always-light page bitmap, so the same in both themes); t1s..t4s = the
+   * solid swatch of each term's chip; the user can override t1..t4 (`search.highlightColors`).
+   */
+  --search-t1: rgb(250 204 21 / 0.55);
+  --search-t2: rgb(34 211 238 / 0.45);
+  --search-t3: rgb(244 114 182 / 0.45);
+  --search-t4: rgb(74 222 128 / 0.5);
+  --search-t1s: #ca8a04;
+  --search-t2s: #0891b2;
+  --search-t3s: #db2777;
+  --search-t4s: #16a34a;
+  --search-active: #b45309;
+  --search-window: color-mix(in srgb, var(--rubrica-accent-page) 7%, transparent);
+  --search-window-line: color-mix(in srgb, var(--rubrica-accent-page) 55%, transparent);
+}
+
+/* OS-driven dark mode — wins unless the app explicitly forces light mode. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --rubrica-background: #17120f;
+    --rubrica-surface: #1e1815;
+    --rubrica-surface-raised: #26201c;
+    --rubrica-overlay: rgb(0 0 0 / 0.6);
+    --rubrica-border: #362d27;
+    --rubrica-border-strong: #4a3e36;
+    --rubrica-text: #f3ece7;
+    --rubrica-muted-text: #b2a69d;
+    --rubrica-accent: #e6808f;
+    --rubrica-accent-hover: #ee9aa6;
+    --rubrica-accent-foreground: #2b0f16;
+    --rubrica-danger: #ff8a80;
+    --rubrica-danger-foreground: #2b0d0a;
+    --rubrica-success: #6fdda6;
+    --rubrica-success-foreground: #07281a;
+    --rubrica-focus-ring: #e6808f;
+  }
+}
+
+/* Explicit manual override (future theme toggle) — wins regardless of OS setting. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --rubrica-background: #17120f;
+  --rubrica-surface: #1e1815;
+  --rubrica-surface-raised: #26201c;
+  --rubrica-overlay: rgb(0 0 0 / 0.6);
+  --rubrica-border: #362d27;
+  --rubrica-border-strong: #4a3e36;
+  --rubrica-text: #f3ece7;
+  --rubrica-muted-text: #b2a69d;
+  --rubrica-accent: #e6808f;
+  --rubrica-accent-hover: #ee9aa6;
+  --rubrica-accent-foreground: #2b0f16;
+  --rubrica-danger: #ff8a80;
+  --rubrica-danger-foreground: #2b0d0a;
+  --rubrica-success: #6fdda6;
+  --rubrica-success-foreground: #07281a;
+  --rubrica-focus-ring: #e6808f;
+}
+
+/*
+ * Accent presets (Settings → Aparência; JS mirror + contrast test in src/tokens/accentPresets.ts).
+ * `prefsStore` sets `data-accent="<id>"` on <html>; the default preset ("rubrica") sets nothing and
+ * uses the values above. Each preset repeats the three theme sources of the palette, in the same
+ * shape: light (the base), OS dark (media query) and forced dark (`data-theme="dark"`). The dark
+ * selectors are one attribute more specific than the base dark blocks above, so they win even
+ * though the preset's light block (same specificity as those, later in the file) also matches in
+ * dark mode. `--rubrica-accent-page` is the light-theme accent, kept in both themes for things
+ * drawn over the always-light page bitmap (search window).
+ */
+
+/* blue */
+:root[data-accent="blue"] {
+  --rubrica-accent: #1d4ed8;
+  --rubrica-accent-hover: #1e40af;
+  --rubrica-accent-foreground: #f5f8ff;
+  --rubrica-focus-ring: #1d4ed8;
+  --rubrica-accent-page: #1d4ed8;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-accent="blue"]:not([data-theme="light"]) {
+    --rubrica-accent: #8ab4ff;
+    --rubrica-accent-hover: #a5c4ff;
+    --rubrica-accent-foreground: #0b1a3a;
+    --rubrica-focus-ring: #8ab4ff;
+  }
+}
+:root[data-accent="blue"][data-theme="dark"] {
+  --rubrica-accent: #8ab4ff;
+  --rubrica-accent-hover: #a5c4ff;
+  --rubrica-accent-foreground: #0b1a3a;
+  --rubrica-focus-ring: #8ab4ff;
+}
+
+/* teal */
+:root[data-accent="teal"] {
+  --rubrica-accent: #0f766e;
+  --rubrica-accent-hover: #115e59;
+  --rubrica-accent-foreground: #f0fdfa;
+  --rubrica-focus-ring: #0f766e;
+  --rubrica-accent-page: #0f766e;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-accent="teal"]:not([data-theme="light"]) {
+    --rubrica-accent: #4fd1c5;
+    --rubrica-accent-hover: #7ee8dc;
+    --rubrica-accent-foreground: #062925;
+    --rubrica-focus-ring: #4fd1c5;
+  }
+}
+:root[data-accent="teal"][data-theme="dark"] {
+  --rubrica-accent: #4fd1c5;
+  --rubrica-accent-hover: #7ee8dc;
+  --rubrica-accent-foreground: #062925;
+  --rubrica-focus-ring: #4fd1c5;
+}
+
+/* green */
+:root[data-accent="green"] {
+  --rubrica-accent: #166534;
+  --rubrica-accent-hover: #14532d;
+  --rubrica-accent-foreground: #f0fdf4;
+  --rubrica-focus-ring: #166534;
+  --rubrica-accent-page: #166534;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-accent="green"]:not([data-theme="light"]) {
+    --rubrica-accent: #6fcf8a;
+    --rubrica-accent-hover: #8ddba3;
+    --rubrica-accent-foreground: #06210f;
+    --rubrica-focus-ring: #6fcf8a;
+  }
+}
+:root[data-accent="green"][data-theme="dark"] {
+  --rubrica-accent: #6fcf8a;
+  --rubrica-accent-hover: #8ddba3;
+  --rubrica-accent-foreground: #06210f;
+  --rubrica-focus-ring: #6fcf8a;
+}
+
+/* purple */
+:root[data-accent="purple"] {
+  --rubrica-accent: #6d28d9;
+  --rubrica-accent-hover: #5b21b6;
+  --rubrica-accent-foreground: #f8f5ff;
+  --rubrica-focus-ring: #6d28d9;
+  --rubrica-accent-page: #6d28d9;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-accent="purple"]:not([data-theme="light"]) {
+    --rubrica-accent: #b79cff;
+    --rubrica-accent-hover: #c9b5ff;
+    --rubrica-accent-foreground: #1d0b45;
+    --rubrica-focus-ring: #b79cff;
+  }
+}
+:root[data-accent="purple"][data-theme="dark"] {
+  --rubrica-accent: #b79cff;
+  --rubrica-accent-hover: #c9b5ff;
+  --rubrica-accent-foreground: #1d0b45;
+  --rubrica-focus-ring: #b79cff;
+}
+
+/* graphite */
+:root[data-accent="graphite"] {
+  --rubrica-accent: #3f4a56;
+  --rubrica-accent-hover: #2c353f;
+  --rubrica-accent-foreground: #f6f8fa;
+  --rubrica-focus-ring: #3f4a56;
+  --rubrica-accent-page: #3f4a56;
+}
+@media (prefers-color-scheme: dark) {
+  :root[data-accent="graphite"]:not([data-theme="light"]) {
+    --rubrica-accent: #aab4c0;
+    --rubrica-accent-hover: #c3cbd4;
+    --rubrica-accent-foreground: #12171c;
+    --rubrica-focus-ring: #aab4c0;
+  }
+}
+:root[data-accent="graphite"][data-theme="dark"] {
+  --rubrica-accent: #aab4c0;
+  --rubrica-accent-hover: #c3cbd4;
+  --rubrica-accent-foreground: #12171c;
+  --rubrica-focus-ring: #aab4c0;
+}
+
+@theme inline {
+  --color-background: var(--rubrica-background);
+  --color-surface: var(--rubrica-surface);
+  --color-surface-raised: var(--rubrica-surface-raised);
+  --color-overlay: var(--rubrica-overlay);
+  --color-border: var(--rubrica-border);
+  --color-border-strong: var(--rubrica-border-strong);
+  --color-text: var(--rubrica-text);
+  --color-muted-text: var(--rubrica-muted-text);
+  --color-accent: var(--rubrica-accent);
+  --color-accent-hover: var(--rubrica-accent-hover);
+  --color-accent-foreground: var(--rubrica-accent-foreground);
+  --color-danger: var(--rubrica-danger);
+  --color-danger-foreground: var(--rubrica-danger-foreground);
+  --color-success: var(--rubrica-success);
+  --color-success-foreground: var(--rubrica-success-foreground);
+  --color-focus-ring: var(--rubrica-focus-ring);
+}
+
+/*
+ * JS-side mirror: src/tokens/tokens.ts exports the same values (colors,
+ * fonts, radii) as plain TS constants for canvas-drawing code that can't
+ * read CSS custom properties. Keep the two in sync by hand.
+ *
+ * Spacing: intentionally NOT redefined here. Tailwind v4 derives its whole
+ * spacing scale (p-4, gap-2, ...) from a single `--spacing` multiplier;
+ * Rubrica uses that default 4px-based scale as-is. tokens.ts still exports
+ * a small `spacing` map (in 4px increments) purely for non-CSS consumers
+ * (e.g. canvas layout math) — it mirrors Tailwind's default scale rather
+ * than a Rubrica-specific override.
+ */
+
+/*
+ * Font files template — uncomment and adjust once real .woff2 files exist
+ * at these paths (see the file header above):
+ *
+ * @font-face {
+ *   font-family: "Bricolage Grotesque";
+ *   src: url("./fonts/BricolageGrotesque-Variable.woff2") format("woff2-variations");
+ *   font-weight: 200 800;
+ *   font-style: normal;
+ *   font-display: swap;
+ * }
+ * @font-face {
+ *   font-family: "Instrument Sans";
+ *   src: url("./fonts/InstrumentSans-Variable.woff2") format("woff2-variations");
+ *   font-weight: 400 700;
+ *   font-style: normal;
+ *   font-display: swap;
+ * }
+ * @font-face {
+ *   font-family: "JetBrains Mono";
+ *   src: url("./fonts/JetBrainsMono-Variable.woff2") format("woff2-variations");
+ *   font-weight: 100 800;
+ *   font-style: normal;
+ *   font-display: swap;
+ * }
+ */

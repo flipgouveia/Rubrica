@@ -1,0 +1,67 @@
+{
+  "screens": {
+    "home": {
+      "dropHint": "Largue um PDF aqui, ou procure um ficheiro.",
+      "browse": "Procurar…",
+      "orTypePath": "Ou escreva um caminho completo",
+      "quickLaunch": {
+        "text": "Documento de texto de exemplo",
+        "form": "Formulário de exemplo",
+        "large": "Documento de exemplo com 500 páginas"
+      },
+      "pathPlaceholder": "Caminho do ficheiro",
+      "recentsTitle": "Documentos recentes",
+      "clearRecents": "Limpar",
+      "noRecents": "Ainda não existem documentos recentes."
+    },
+    "settings": {
+      "title": "Definições",
+      "language": {
+        "title": "Idioma",
+        "ptPT": "Português (Portugal)",
+        "en": "Inglês"
+      },
+      "theme": {
+        "title": "Tema",
+        "system": "Sistema",
+        "light": "Claro",
+        "dark": "Escuro"
+      },
+      "accent": {
+        "title": "Cor de destaque",
+        "rubrica": "Vermelho Rubrica",
+        "blue": "Azul",
+        "teal": "Verde-azulado",
+        "green": "Verde",
+        "purple": "Roxo",
+        "graphite": "Grafite"
+      },
+      "nightMode": {
+        "title": "Modo de leitura noturna",
+        "enabled": "Ativado por predefinição",
+        "sepia": "Sépia",
+        "invert": "Invertido"
+      },
+      "backup": {
+        "title": "Cópias de segurança",
+        "description": "Manter uma cópia .bak da versão anterior ao guardar"
+      },
+      "shortcuts": {
+        "title": "Atalhos de teclado"
+      },
+      "search": {
+        "title": "Pesquisa",
+        "colorsTitle": "Cores do destaque",
+        "colorsDescription": "Uma cor por posição do termo na pesquisa (cor 1 = 1.º termo). A transparência é fixa para o texto da página continuar legível.",
+        "colorN": "Cor {{n}}",
+        "reset": "Repor cores originais"
+      }
+    },
+    "recovery": {
+      "title": "Recuperar alterações não guardadas?",
+      "description": "O Rubrica encontrou alterações não guardadas de \"{{name}}\", de {{savedAt}}. Pretende recuperá-las?",
+      "notNow": "Agora não",
+      "open": "Abrir e recuperar"
+    }
+  }
+}

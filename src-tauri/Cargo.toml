@@ -1,0 +1,117 @@
+[package]
+name = "rubrica"
+version = "0.1.0"
+description = "Rubrica — local-first PDF editor"
+authors = ["Rubrica contributors"]
+edition = "2021"
+rust-version = "1.77.2"
+license = "MIT"
+repository = ""
+default-run = "rubrica"
+
+[lib]
+# See: https://tauri.app/develop/#binding-to-a-shared-library
+name = "rubrica_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+specta = { version = "=2.0.0-rc.25", features = ["derive"] }
+specta-typescript = "0.0.12"
+tauri-specta = { version = "=2.0.0-rc.25", features = ["derive", "typescript"] }
+rusqlite = { version = "0.40", features = ["bundled"] }
+image = { version = "0.25", default-features = false, features = ["png", "jpeg"] }
+# Default features already include image support (image_latest) and
+# thread-safe bindings (thread_safe) — see pdfium-render's Cargo.toml.
+pdfium-render = "0.9"
+thiserror = "2"
+# LRU tile cache (engine::tiles).
+lru = "0.12"
+# Journal filenames are a stable hash of the document's canonical path
+# (engine::journal), so the same document always maps to the same journal
+# file across app restarts.
+sha2 = "0.10"
+# `Box<dyn Command>` (engine::history) needs to round-trip through the
+# autosave journal as JSON without a central enum of every command type —
+# typetag gives trait-object (de)serialization via a self-registering macro,
+# so wave-2 modules can add new Command impls in their own files without
+# ever touching this one. Not in the brief's suggested dependency list; see
+# API.md / the report for the rationale.
+typetag = "0.2"
+tempfile = "3"
+# R7 (Windows citizenship): single-instance routing (file-open-into-tab) and
+# the auto-updater against GitHub Releases (its own installer exits and
+# relaunches the app on Windows — see plugin-updater's own docs — so no
+# separate process/relaunch plugin is needed). Both are OS-integration
+# plugins, not part of CONTRACTS' IPC surface — see os_integration.rs.
+tauri-plugin-single-instance = "2"
+# `zip` is dropped: the updater only extracts zip payloads, and Rubrica ships an NSIS
+# installer (tauri.conf.json bundle.targets = ["nsis"]). Dropping it also removes the
+# vulnerable zip 4.x crate (RUSTSEC-2026-0367/0368/0369) from the dependency graph.
+tauri-plugin-updater = { version = "2", default-features = false, features = ["rustls-tls", "system-proxy"] }
+# Native Open/Save file pickers. The frontend cannot open an OS file dialog on
+# its own (a webview <input type="file"> yields a sandboxed File, never the real
+# filesystem path our `doc_open(path)` / `doc_save_as(path)` contract needs), so
+# every browse affordance in the UI goes through this plugin. Not part of
+# CONTRACTS' IPC surface — it is an OS-integration plugin like the two above.
+tauri-plugin-dialog = "2"
+# R7: native Jump List (ICustomDestinationList/IShellLinkW via COM) and the
+# process's Explicit AppUserModelID. Windows-only — see os_integration.rs.
+windows = { version = "0.58", features = [
+  "Win32_UI_Shell",
+  "Win32_UI_Shell_Common",
+  "Win32_UI_Shell_PropertiesSystem",
+  "Win32_Storage_EnhancedStorage",
+  "Win32_System_Com",
+  "Win32_Foundation",
+] }
+
+[dev-dependencies]
+# Decompresses saved PDFs' Flate-encoded content streams for the redaction byte-search test
+# (tests/engine_fixtures.rs) — a raw byte scan of the saved file alone is meaningless once any
+# stream is compressed, which PDFium's own `save_to_bytes()` does by default. Already resolved
+# in Cargo.lock as a transitive dependency of other crates; this just makes it a direct one.
+flate2 = "1"
+
+# Pdfium ships as a prebuilt dynamic library (see src-tauri/pdfium/) rather than a
+# statically-linked crate dependency — pdfium-render binds to it at runtime. See
+# build.rs, which copies it next to the compiled binary on every build.
+
+[[test]]
+name = "pdfium_smoke"
+path = "tests/pdfium_smoke.rs"
+
+[[test]]
+name = "export_bindings"
+path = "tests/export_bindings.rs"
+
+# Speed up debug builds' PNG tile/thumbnail encoding without touching the release build.
+#
+# The `rubrica-tile`/`rubrica-thumb` protocol handlers render a page with PDFium (fast — that
+# code lives in the prebuilt `pdfium.dll`, unaffected by this profile) and then PNG-encode the
+# 512×512 result in pure Rust (`engine::tiles::encode_png` → `image` → `png` → `fdeflate`/
+# `miniz_oxide` DEFLATE). Those crates are the whole encode cost, and in an unoptimized debug
+# build the DEFLATE pass is ~10× slower than release — measured at ~2.5 s to paint the 36 tiles a
+# freshly opened `text.pdf` requests, vs ~1 s once these crates are optimized. Building just these
+# codec crates at `opt-level = 3` takes that back down without opt-level'ing the whole dependency
+# graph (which would balloon debug compile time) or the crate itself (kept unoptimized for fast
+# incremental builds + debuggability). Release is untouched — it already builds these optimized.
+# This is a debug-build convenience only; it does not affect the shipped app, whose renders are
+# already fast.
+[profile.dev.package.miniz_oxide]
+opt-level = 3
+[profile.dev.package.fdeflate]
+opt-level = 3
+[profile.dev.package.png]
+opt-level = 3
+[profile.dev.package.image]
+opt-level = 3
+[profile.dev.package.adler2]
+opt-level = 3
+[profile.dev.package.crc32fast]
+opt-level = 3

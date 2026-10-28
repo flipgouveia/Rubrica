@@ -1,0 +1,58 @@
+{
+  "tools-annotate": {
+    "shortcuts": {
+      "activate": "Annotate"
+    },
+    "toolbar": {
+      "label": "Annotate",
+      "applyToSelection": "Apply to selection",
+      "applyToSelectionHint": "Select some text in the document first, then apply.",
+      "ariaLabel": "Annotation tools",
+      "select": "Select",
+      "highlight": "Highlight",
+      "underline": "Underline",
+      "strikeout": "Strikeout",
+      "ink": "Draw",
+      "note": "Sticky note",
+      "shape": "Shape",
+      "freeText": "Text box",
+      "delete": "Delete annotation"
+    },
+    "shapes": {
+      "rect": "Rectangle",
+      "ellipse": "Ellipse",
+      "line": "Line",
+      "arrow": "Arrow"
+    },
+    "style": {
+      "ariaLabel": "Annotation style",
+      "color": "Color",
+      "customColor": "Custom color",
+      "opacity": "Opacity",
+      "width": "Stroke width",
+      "fontSize": "Font size",
+      "fill": "Fill shape"
+    },
+    "note": {
+      "title": "Note",
+      "placeholder": "Type a note…",
+      "delete": "Delete note"
+    },
+    "freeText": {
+      "placeholder": "Type text…"
+    },
+    "layer": {
+      "ariaLabel": "Annotation layer"
+    },
+    "harness": {
+      "title": "Annotation tool — manual QA harness",
+      "subtitle": "Development-only surface: opens the mock text document and mounts the annotation toolbar and overlay directly, with no app shell around them.",
+      "noDocument": "Opening the mock document…",
+      "simulateSelection": "Simulate text selection",
+      "pageAlt": "Page {{page}}",
+      "status": "Revision {{revision}} · unsaved changes: {{dirty}}",
+      "dirtyYes": "yes",
+      "dirtyNo": "no"
+    }
+  }
+}

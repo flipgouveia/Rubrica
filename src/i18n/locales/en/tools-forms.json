@@ -1,0 +1,37 @@
+{
+  "tools-forms": {
+    "toolbar": {
+      "label": "Forms"
+    },
+    "shortcuts": {
+      "activate": "Forms"
+    },
+    "field": {
+      "ariaLabel": "{{name}} field",
+      "requiredSuffix": ", required",
+      "readOnlySuffix": ", read-only",
+      "readOnlyBadge": "Read-only",
+      "requiredPlaceholder": "Required",
+      "emptyValue": "(empty)",
+      "saveFailedBadge": "Not saved",
+      "saveFailedTooltip": "Couldn't save: {{message}}"
+    },
+    "panel": {
+      "title": "Form fields",
+      "nextField": "Next field",
+      "empty": "This document has no form fields.",
+      "pageValueLine": "Page {{page}} — {{value}}"
+    },
+    "overlay": {
+      "loadError": "Couldn't load form fields: {{message}}"
+    },
+    "unsaved": {
+      "indicator": "You have unsaved form changes"
+    },
+    "harness": {
+      "title": "Forms tool — manual QA harness",
+      "pageAlt": "Page {{page}} background",
+      "openFailed": "Couldn't open the mock form document: {{message}}"
+    }
+  }
+}

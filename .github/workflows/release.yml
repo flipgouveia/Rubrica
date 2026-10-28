@@ -1,0 +1,88 @@
+name: Release
+
+# R7 (Windows citizenship, deliverable 5). Triggered by pushing a `v*` tag —
+# `ci.yml` (untouched by this workflow) already builds a debug NSIS bundle on
+# every push/PR; this is the separate, tag-only pipeline that builds a real
+# release, signs it for the auto-updater, and drafts a GitHub Release for a
+# human to review before publishing.
+#
+# `createUpdaterArtifacts` is deliberately NOT in the base tauri.conf.json —
+# turning it on requires the updater signing key to be present, and the base
+# config is what every contributor's local `pnpm tauri build` and `ci.yml`
+# use. `src-tauri/tauri.release.conf.json` (merged in below via `--config`)
+# is the one place that flips it on, so only this tag-triggered job ever
+# needs the signing secrets.
+
+on:
+  push:
+    tags: ["v*"]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  release:
+    name: Build, sign, and draft a GitHub Release
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust stable (MSVC)
+        uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # Builds the NSIS installer (release profile, updater-signed via the
+      # secrets below), creates a draft Release named after the pushed tag,
+      # and uploads the installer + its `.sig` + a generated `latest.json`
+      # update manifest — the endpoint tauri.conf.json's plugins.updater
+      # already points at (releases/latest/download/latest.json), live the
+      # moment a human publishes this draft.
+      - name: Build and draft release (NSIS, updater-signed)
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: "Rubrica ${{ github.ref_name }}"
+          releaseDraft: true
+          prerelease: false
+          args: --config src-tauri/tauri.release.conf.json
+
+      # Deliverable 1's other half: a portable .exe (a plain zip — same
+      # binary + pdfium.dll + a `portable.txt` marker main.rs looks for,
+      # see docs/INSTALL.md) with the updater disabled outright (R7 never
+      # registers the updater plugin when that marker is present — see
+      # `os_integration::is_portable`), so it needs no signing at all.
+      - name: Assemble the portable .zip
+        shell: pwsh
+        run: |
+          $version = "${{ github.ref_name }}" -replace '^v', ''
+          $dir = "rubrica-$version-portable-x64"
+          New-Item -ItemType Directory -Path $dir | Out-Null
+          Copy-Item "src-tauri/target/release/rubrica.exe" "$dir/Rubrica.exe"
+          Copy-Item "src-tauri/target/release/pdfium.dll" "$dir/pdfium.dll"
+          New-Item -ItemType File -Path "$dir/portable.txt" | Out-Null
+          Compress-Archive -Path $dir -DestinationPath "$dir.zip"
+
+      - name: Attach the portable .zip to the draft release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload "${{ github.ref_name }}" rubrica-*-portable-x64.zip --clobber

@@ -1,0 +1,48 @@
+{
+  "tools-pages": {
+    "toolbar": {
+      "label": "Pages"
+    },
+    "shortcuts": {
+      "activate": "Pages"
+    },
+    "panel": {
+      "title": "Pages",
+      "empty": "No document is open.",
+      "insertHint": "New pages are inserted after the current selection, or at the end if nothing is selected.",
+      "pageLabel": "Page {{page}}",
+      "pageAlt": "Thumbnail of page {{page}}",
+      "selectedCount_one": "1 page selected",
+      "selectedCount_other": "{{count}} pages selected"
+    },
+    "actions": {
+      "rotateLeft": "Rotate left",
+      "rotateRight": "Rotate right",
+      "delete": "Delete selected pages",
+      "insertBlank": "Insert blank page",
+      "insertFromFile": "Insert from file...",
+      "dragHandle": "Drag to reorder page {{page}}",
+      "selectPage": "Select page {{page}}"
+    },
+    "deleteDialog": {
+      "title_one": "Delete page?",
+      "title_other": "Delete {{count}} pages?",
+      "body_one": "This permanently removes the selected page from the document. You can undo this afterwards.",
+      "body_other": "This permanently removes these {{count}} pages from the document. You can undo this afterwards."
+    },
+    "insertFileDialog": {
+      "title": "Insert pages from file",
+      "fileLabel": "PDF file",
+      "noFileChosen": "No file chosen.",
+      "rangeToggle": "Insert only a page range",
+      "rangeStart": "First page",
+      "rangeEnd": "Last page",
+      "confirm": "Insert"
+    },
+    "errors": {
+      "cannotDeleteAllPages": "Can't delete every page — a document must keep at least one page.",
+      "generic": "Something went wrong: {{message}}",
+      "dismiss": "Dismiss this message"
+    }
+  }
+}

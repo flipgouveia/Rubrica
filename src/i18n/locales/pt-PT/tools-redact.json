@@ -1,0 +1,45 @@
+{
+  "tools-redact": {
+    "toolbar": {
+      "label": "Redigir"
+    },
+    "panel": {
+      "title": "Redigir",
+      "empty": "Ainda não há marcas de redação pendentes. Arraste um retângulo sobre a página, ou marque a seleção de texto atual.",
+      "dragHint": "Arraste sobre a página para marcar uma área a redigir.",
+      "summary_one": "1 marca pendente",
+      "summary_other": "{{count}} marcas pendentes",
+      "pageLabel": "Página {{page}}",
+      "markLabel": "Marca {{index}}"
+    },
+    "actions": {
+      "markSelection": "Marcar seleção",
+      "clearAll": "Limpar tudo",
+      "removeMark": "Remover esta marca",
+      "redact": "Redigir"
+    },
+    "overlay": {
+      "ariaLabel": "Marcas de redação",
+      "removeMark": "Remover esta marca de redação"
+    },
+    "confirmDialog": {
+      "title_one": "Redigir esta área marcada?",
+      "title_other": "Redigir estas {{count}} áreas marcadas?",
+      "whatItDoes": "A redação remove definitivamente o texto, as imagens e todo o restante conteúdo dentro da área marcada, substituindo-a por uma imagem fixa do que restar. O conteúdo não fica escondido — deixa de existir.",
+      "vsWhiteout": "Isto é diferente da forma opaca da ferramenta de anotação, que se limita a pintar por cima do conteúdo — este mantém-se totalmente intacto por baixo, continuando selecionável, pesquisável e recuperável.",
+      "wholeObjectCaveat": "A redação remove blocos de texto e imagens inteiros que toquem na área marcada, não apenas os pixels lá dentro — se uma marca cortar apenas a margem de uma linha ou de uma imagem, essa linha ou imagem é removida por completo.",
+      "irreversibility": "Pode anular esta ação antes de guardar, tal como qualquer outra edição. Depois de guardar o ficheiro, deixa de ser possível anular.",
+      "confirm": "Redigir"
+    },
+    "shortcuts": {
+      "activate": "Ativar a ferramenta de redação",
+      "markSelection": "Marcar a seleção atual para redação"
+    },
+    "harness": {
+      "title": "Ferramenta de redação — banco de testes manual",
+      "subtitle": "Ambiente só de desenvolvimento: abre o documento de texto simulado e mostra a página com a camada de redação e o painel, sem qualquer interface à volta.",
+      "simulateSelection": "Simular seleção de texto",
+      "pageAlt": "Página {{page}}"
+    }
+  }
+}

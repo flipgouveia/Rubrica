@@ -1,0 +1,43 @@
+{
+  "tools-textedit": {
+    "toolbar": {
+      "label": "Editar texto e objetos"
+    },
+    "shortcuts": {
+      "activate": "Ativar a edição de texto"
+    },
+    "panel": {
+      "title": "Texto e objetos",
+      "noReflowHint": "Editar um bloco de texto só altera esse bloco — o texto à volta nunca é reorganizado, ao contrário de um processador de texto.",
+      "modeLabel": "Modo",
+      "modes": {
+        "select": "Selecionar",
+        "addText": "Adicionar texto",
+        "addImage": "Adicionar imagem"
+      },
+      "selectHint": "Clique num bloco de texto para o selecionar. Clique novamente num bloco já selecionado para o editar.",
+      "addTextHint": "Clique na página para colocar uma caixa de texto de {{width}}×{{height}} pontos, ou arraste para definir o tamanho.",
+      "fontSizeLabel": "Tamanho da letra",
+      "colorLabel": "Cor",
+      "addImageHint": "Clique na página para colocar uma imagem de {{width}}×{{height}} pontos, ou arraste para definir o tamanho.",
+      "imagePathLabel": "Caminho do ficheiro de imagem",
+      "imagePathPlaceholder": "C:\\caminho\\para\\imagem.png",
+      "imagePathRequired": "Introduza um caminho de ficheiro antes de colocar uma imagem.",
+      "imageDeleteNote": "As imagens colocadas não podem ser selecionadas nem eliminadas depois — anule a ação (Ctrl+Z) logo a seguir a adicionar uma, se precisar de a remover.",
+      "selectionLabel": "Seleção",
+      "noSelection": "Nenhum bloco de texto selecionado.",
+      "selectedOnPage": "Bloco de texto selecionado na página {{page}}.",
+      "selectedText": "\"{{text}}\"",
+      "fontSubstitutedNote": "Não foi possível reutilizar o tipo de letra original deste bloco — foi aplicado um tipo de letra alternativo."
+    },
+    "overlay": {
+      "ariaLabel": "Camada de edição de texto e objetos",
+      "runLabel": "Bloco de texto: {{text}}",
+      "editPlaceholder": "Escreva o texto...",
+      "newTextPlaceholder": "Escreva o texto da nova caixa...",
+      "imagePlacedLabel": "Imagem colocada",
+      "fontSubstitutedBadge": "Tipo de letra substituído",
+      "fontSubstitutedTooltip": "Não foi possível reutilizar o tipo de letra incorporado deste bloco, pelo que o Rubrica aplicou um tipo de letra alternativo padrão."
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "common": {
+    "app": {
+      "name": "Rubrica"
+    },
+    "status": {
+      "loading": "Loading...",
+      "error": "Error"
+    },
+    "actions": {
+      "retry": "Retry",
+      "save": "Save",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "delete": "Delete",
+      "close": "Close",
+      "undo": "Undo",
+      "redo": "Redo",
+      "open": "Open"
+    },
+    "errors": {
+      "encrypted": {
+        "title": "This PDF is password-protected",
+        "description": "Rubrica can't open encrypted PDFs yet. Remove the password with another tool, then try again."
+      },
+      "corrupt": {
+        "title": "This file couldn't be read",
+        "description": "The PDF appears to be damaged, or isn't a valid PDF file."
+      },
+      "io": {
+        "title": "File error",
+        "description": "{{message}}"
+      },
+      "notFound": {
+        "title": "File not found",
+        "description": "Rubrica couldn't find this file. It may have been moved or deleted."
+      },
+      "unsupported": {
+        "title": "Not supported yet",
+        "description": "This isn't available in this version of Rubrica."
+      },
+      "fontMissing": {
+        "title": "Font unavailable",
+        "description": "The original font isn't available, so Rubrica substituted a standard one."
+      },
+      "invalidArg": {
+        "title": "Something went wrong",
+        "description": "{{message}}"
+      },
+      "internal": {
+        "title": "Unexpected error",
+        "description": "{{message}}"
+      }
+    },
+    "updater": {
+      "available": {
+        "title": "Update available",
+        "description": "Rubrica {{version}} is ready to install.",
+        "action": "Install and restart"
+      },
+      "installFailed": {
+        "title": "Couldn't install the update",
+        "description": "Rubrica will keep using this version. Try again later."
+      }
+    }
+  }
+}

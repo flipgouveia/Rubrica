@@ -1,0 +1,58 @@
+{
+  "tools-annotate": {
+    "shortcuts": {
+      "activate": "Anotar"
+    },
+    "toolbar": {
+      "label": "Anotar",
+      "applyToSelection": "Aplicar à seleção",
+      "applyToSelectionHint": "Selecione primeiro algum texto no documento e depois aplique.",
+      "ariaLabel": "Ferramentas de anotação",
+      "select": "Selecionar",
+      "highlight": "Marcador",
+      "underline": "Sublinhado",
+      "strikeout": "Rasurado",
+      "ink": "Desenho à mão",
+      "note": "Nota adesiva",
+      "shape": "Forma",
+      "freeText": "Caixa de texto",
+      "delete": "Eliminar anotação"
+    },
+    "shapes": {
+      "rect": "Retângulo",
+      "ellipse": "Elipse",
+      "line": "Linha",
+      "arrow": "Seta"
+    },
+    "style": {
+      "ariaLabel": "Estilo da anotação",
+      "color": "Cor",
+      "customColor": "Cor personalizada",
+      "opacity": "Opacidade",
+      "width": "Espessura do traço",
+      "fontSize": "Tamanho da letra",
+      "fill": "Preencher forma"
+    },
+    "note": {
+      "title": "Nota",
+      "placeholder": "Escreva uma nota…",
+      "delete": "Eliminar nota"
+    },
+    "freeText": {
+      "placeholder": "Escreva o texto…"
+    },
+    "layer": {
+      "ariaLabel": "Camada de anotações"
+    },
+    "harness": {
+      "title": "Ferramenta de anotações — banco de testes manual",
+      "subtitle": "Ambiente só de desenvolvimento: abre o documento de texto simulado e monta a barra de ferramentas e a camada de anotações sem qualquer interface à volta.",
+      "noDocument": "A abrir o documento simulado…",
+      "simulateSelection": "Simular seleção de texto",
+      "pageAlt": "Página {{page}}",
+      "status": "Revisão {{revision}} · alterações por guardar: {{dirty}}",
+      "dirtyYes": "sim",
+      "dirtyNo": "não"
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "tools-redact": {
+    "toolbar": {
+      "label": "Redact"
+    },
+    "panel": {
+      "title": "Redact",
+      "empty": "No pending redaction marks yet. Drag a rectangle over the page, or mark the current text selection.",
+      "dragHint": "Drag over the page to mark an area for redaction.",
+      "summary_one": "1 pending mark",
+      "summary_other": "{{count}} pending marks",
+      "pageLabel": "Page {{page}}",
+      "markLabel": "Mark {{index}}"
+    },
+    "actions": {
+      "markSelection": "Mark selection",
+      "clearAll": "Clear all",
+      "removeMark": "Remove this mark",
+      "redact": "Redact"
+    },
+    "overlay": {
+      "ariaLabel": "Redaction marks",
+      "removeMark": "Remove this redaction mark"
+    },
+    "confirmDialog": {
+      "title_one": "Redact this marked area?",
+      "title_other": "Redact these {{count}} marked areas?",
+      "whatItDoes": "Redaction permanently removes the text, images, and any other content inside the marked area, then replaces it with a flat image of whatever is left behind. The content isn't hidden — it's gone.",
+      "vsWhiteout": "This is different from the annotate tool's opaque shape, which only paints over the content — it stays completely intact underneath, still selectable, searchable, and recoverable.",
+      "wholeObjectCaveat": "Redaction removes whole text runs and images that touch the marked area, not just the pixels inside it — if a mark only clips the edge of a line or picture, that entire line or picture is removed.",
+      "irreversibility": "You can undo this before saving, like any other edit. Once you save the file, it can't be undone.",
+      "confirm": "Redact"
+    },
+    "shortcuts": {
+      "activate": "Activate the redact tool",
+      "markSelection": "Mark the current selection for redaction"
+    },
+    "harness": {
+      "title": "Redact tool — manual QA harness",
+      "subtitle": "Development-only surface: opens the mock text document and shows the page with the redact overlay and panel, with no app shell around them.",
+      "simulateSelection": "Simulate text selection",
+      "pageAlt": "Page {{page}}"
+    }
+  }
+}

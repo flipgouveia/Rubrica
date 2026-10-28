@@ -1,0 +1,48 @@
+{
+  "tools-pages": {
+    "toolbar": {
+      "label": "Páginas"
+    },
+    "shortcuts": {
+      "activate": "Páginas"
+    },
+    "panel": {
+      "title": "Páginas",
+      "empty": "Não há nenhum documento aberto.",
+      "insertHint": "As novas páginas são inseridas a seguir à seleção atual ou, se não houver seleção, no fim do documento.",
+      "pageLabel": "Página {{page}}",
+      "pageAlt": "Miniatura da página {{page}}",
+      "selectedCount_one": "1 página selecionada",
+      "selectedCount_other": "{{count}} páginas selecionadas"
+    },
+    "actions": {
+      "rotateLeft": "Rodar para a esquerda",
+      "rotateRight": "Rodar para a direita",
+      "delete": "Eliminar páginas selecionadas",
+      "insertBlank": "Inserir página em branco",
+      "insertFromFile": "Inserir de um ficheiro...",
+      "dragHandle": "Arrastar para reordenar a página {{page}}",
+      "selectPage": "Selecionar a página {{page}}"
+    },
+    "deleteDialog": {
+      "title_one": "Eliminar a página?",
+      "title_other": "Eliminar {{count}} páginas?",
+      "body_one": "Esta ação remove definitivamente a página selecionada do documento. Pode anular esta ação a seguir.",
+      "body_other": "Esta ação remove definitivamente estas {{count}} páginas do documento. Pode anular esta ação a seguir."
+    },
+    "insertFileDialog": {
+      "title": "Inserir páginas de um ficheiro",
+      "fileLabel": "Ficheiro PDF",
+      "noFileChosen": "Nenhum ficheiro escolhido.",
+      "rangeToggle": "Inserir apenas um intervalo de páginas",
+      "rangeStart": "Primeira página",
+      "rangeEnd": "Última página",
+      "confirm": "Inserir"
+    },
+    "errors": {
+      "cannotDeleteAllPages": "Não é possível eliminar todas as páginas — o documento tem de manter pelo menos uma página.",
+      "generic": "Ocorreu um erro: {{message}}",
+      "dismiss": "Dispensar esta mensagem"
+    }
+  }
+}

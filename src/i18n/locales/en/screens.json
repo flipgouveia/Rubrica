@@ -1,0 +1,67 @@
+{
+  "screens": {
+    "home": {
+      "dropHint": "Drop a PDF here, or browse for one.",
+      "browse": "Browse…",
+      "orTypePath": "Or type a full path",
+      "quickLaunch": {
+        "text": "Sample text document",
+        "form": "Sample form",
+        "large": "Sample 500-page document"
+      },
+      "pathPlaceholder": "File path",
+      "recentsTitle": "Recent documents",
+      "clearRecents": "Clear",
+      "noRecents": "No recent documents yet."
+    },
+    "settings": {
+      "title": "Settings",
+      "language": {
+        "title": "Language",
+        "ptPT": "Português (Portugal)",
+        "en": "English"
+      },
+      "theme": {
+        "title": "Theme",
+        "system": "System",
+        "light": "Light",
+        "dark": "Dark"
+      },
+      "accent": {
+        "title": "Accent color",
+        "rubrica": "Rubrica red",
+        "blue": "Blue",
+        "teal": "Teal",
+        "green": "Green",
+        "purple": "Purple",
+        "graphite": "Graphite"
+      },
+      "nightMode": {
+        "title": "Night reading mode",
+        "enabled": "Enabled by default",
+        "sepia": "Sepia",
+        "invert": "Inverted"
+      },
+      "backup": {
+        "title": "Backups",
+        "description": "Keep a .bak copy of the previous version when saving"
+      },
+      "shortcuts": {
+        "title": "Keyboard shortcuts"
+      },
+      "search": {
+        "title": "Search",
+        "colorsTitle": "Highlight colors",
+        "colorsDescription": "One color per term position in a search (color 1 = 1st term). Opacity is fixed so the page text stays readable.",
+        "colorN": "Color {{n}}",
+        "reset": "Reset to original colors"
+      }
+    },
+    "recovery": {
+      "title": "Recover unsaved changes?",
+      "description": "Rubrica found unsaved changes for \"{{name}}\" from {{savedAt}}. Would you like to recover them?",
+      "notNow": "Not now",
+      "open": "Open and recover"
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Rubrica",
+  "version": "0.1.0",
+  "identifier": "app.rubrica.desktop",
+  "build": {
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build",
+    "devUrl": "http://localhost:1420",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Rubrica",
+        "width": 1200,
+        "height": 800,
+        "minWidth": 800,
+        "minHeight": 600,
+        "zoomHotkeysEnabled": false
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: http://rubrica-tile.localhost http://rubrica-thumb.localhost http://rubrica-print.localhost rubrica-tile: rubrica-thumb: rubrica-print:; font-src 'self' data:; connect-src 'self' ipc: http://ipc.localhost http://rubrica-tile.localhost http://rubrica-thumb.localhost http://rubrica-print.localhost rubrica-tile: rubrica-thumb: rubrica-print:; object-src 'none'; base-uri 'none'; frame-ancestors 'none'"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["nsis"],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.ico",
+      "icons/icon.icns"
+    ],
+    "resources": ["pdfium/bin/pdfium.dll"],
+    "windows": {
+      "nsis": {
+        "languages": ["Portuguese", "English"],
+        "displayLanguageSelector": true,
+        "installMode": "currentUser",
+        "installerHooks": "../installer/hooks.nsh"
+      }
+    }
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDJGOEE2QzAwRTE5RUJFMEUKUldRT3ZwN2hBR3lLTC9PSjNPaDJaNDJqcTBrMXp0VjJTRktjNmxGS2VrVWdwSWZiMzZtMGlRTSsK",
+      "endpoints": [
+        "https://github.com/flipgouveia/Rubrica/releases/latest/download/latest.json"
+      ],
+      "windows": {
+        "installMode": "passive"
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "tools-forms": {
+    "toolbar": {
+      "label": "Formulários"
+    },
+    "shortcuts": {
+      "activate": "Formulários"
+    },
+    "field": {
+      "ariaLabel": "Campo {{name}}",
+      "requiredSuffix": ", obrigatório",
+      "readOnlySuffix": ", só de leitura",
+      "readOnlyBadge": "Só de leitura",
+      "requiredPlaceholder": "Obrigatório",
+      "emptyValue": "(vazio)",
+      "saveFailedBadge": "Não guardado",
+      "saveFailedTooltip": "Não foi possível guardar: {{message}}"
+    },
+    "panel": {
+      "title": "Campos do formulário",
+      "nextField": "Campo seguinte",
+      "empty": "Este documento não tem campos de formulário.",
+      "pageValueLine": "Página {{page}} — {{value}}"
+    },
+    "overlay": {
+      "loadError": "Não foi possível carregar os campos do formulário: {{message}}"
+    },
+    "unsaved": {
+      "indicator": "Tem alterações do formulário por guardar"
+    },
+    "harness": {
+      "title": "Ferramenta de formulários — harness de verificação manual",
+      "pageAlt": "Fundo da página {{page}}",
+      "openFailed": "Não foi possível abrir o documento de formulário simulado: {{message}}"
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "chrome": {
+    "toolbar": {
+      "home": "Home",
+      "openMenu": "Open",
+      "openFile": "Open file…",
+      "recentDocuments": "Recent documents",
+      "noRecentDocuments": "No recent documents",
+      "saveMenu": "Save",
+      "saveAs": "Save As…",
+      "print": "Print…",
+      "zoomOut": "Zoom out",
+      "zoomIn": "Zoom in",
+      "zoom": {
+        "fitWidth": "Fit width",
+        "fitPage": "Fit page"
+      },
+      "search": "Search",
+      "nightMode": "Night reading mode",
+      "commandPalette": "Command palette",
+      "settings": "Settings"
+    },
+    "tabs": {
+      "untitled": "Untitled",
+      "close": "Close {{name}}",
+      "openNew": "Open another document",
+      "closeDirtyTitle": "Close without saving?",
+      "closeDirtyDescription": "This document has unsaved changes. Closing it now will discard them.",
+      "closeWithoutSaving": "Close without saving"
+    },
+    "saveAs": {
+      "title": "Save As",
+      "description": "Choose a destination with the file browser, or type a full path.",
+      "browse": "Browse…",
+      "pathPlaceholder": "e.g. C:\\Users\\you\\Documents\\file.pdf"
+    },
+    "print": {
+      "title": "Print",
+      "description": "Choose which pages to print.",
+      "rangeLegend": "Page range",
+      "mode": {
+        "all": "All pages",
+        "current": "Current page",
+        "range": "Custom range"
+      },
+      "rangePlaceholder": "e.g. 1-3, 5",
+      "action": "Print",
+      "failed": "Couldn't prepare the pages for printing."
+    },
+    "rail": {
+      "label": "Page thumbnails",
+      "pageAlt": "Page {{page}}"
+    },
+    "palette": {
+      "title": "Command palette",
+      "description": "Search for a command or tool.",
+      "placeholder": "Type a command…",
+      "goHome": "Go to Home",
+      "openSettings": "Open Settings",
+      "search": "Search in document",
+      "toggleNightMode": "Toggle night reading mode",
+      "noResults": "No matching commands"
+    },
+    "shortcuts": {
+      "save": "Save",
+      "undo": "Undo",
+      "redo": "Redo",
+      "print": "Print",
+      "commandPalette": "Open command palette"
+    }
+  }
+}

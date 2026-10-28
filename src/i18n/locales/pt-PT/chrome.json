@@ -1,0 +1,72 @@
+{
+  "chrome": {
+    "toolbar": {
+      "home": "Início",
+      "openMenu": "Abrir",
+      "openFile": "Abrir ficheiro…",
+      "recentDocuments": "Documentos recentes",
+      "noRecentDocuments": "Sem documentos recentes",
+      "saveMenu": "Guardar",
+      "saveAs": "Guardar como…",
+      "print": "Imprimir…",
+      "zoomOut": "Reduzir zoom",
+      "zoomIn": "Aumentar zoom",
+      "zoom": {
+        "fitWidth": "Ajustar à largura",
+        "fitPage": "Ajustar à página"
+      },
+      "search": "Pesquisar",
+      "nightMode": "Modo de leitura noturna",
+      "commandPalette": "Paleta de comandos",
+      "settings": "Definições"
+    },
+    "tabs": {
+      "untitled": "Sem título",
+      "close": "Fechar {{name}}",
+      "openNew": "Abrir outro documento",
+      "closeDirtyTitle": "Fechar sem guardar?",
+      "closeDirtyDescription": "Este documento tem alterações não guardadas. Se o fechar agora, estas serão perdidas.",
+      "closeWithoutSaving": "Fechar sem guardar"
+    },
+    "saveAs": {
+      "title": "Guardar como",
+      "description": "Escolha um destino no explorador de ficheiros, ou escreva um caminho completo.",
+      "browse": "Procurar…",
+      "pathPlaceholder": "ex.: C:\\Users\\utilizador\\Documentos\\ficheiro.pdf"
+    },
+    "print": {
+      "title": "Imprimir",
+      "description": "Escolha as páginas a imprimir.",
+      "rangeLegend": "Intervalo de páginas",
+      "mode": {
+        "all": "Todas as páginas",
+        "current": "Página atual",
+        "range": "Intervalo personalizado"
+      },
+      "rangePlaceholder": "ex.: 1-3, 5",
+      "action": "Imprimir",
+      "failed": "Não foi possível preparar as páginas para impressão."
+    },
+    "rail": {
+      "label": "Miniaturas das páginas",
+      "pageAlt": "Página {{page}}"
+    },
+    "palette": {
+      "title": "Paleta de comandos",
+      "description": "Procure um comando ou ferramenta.",
+      "placeholder": "Escreva um comando…",
+      "goHome": "Ir para o Início",
+      "openSettings": "Abrir Definições",
+      "search": "Pesquisar no documento",
+      "toggleNightMode": "Alternar modo de leitura noturna",
+      "noResults": "Nenhum comando correspondente"
+    },
+    "shortcuts": {
+      "save": "Guardar",
+      "undo": "Anular",
+      "redo": "Refazer",
+      "print": "Imprimir",
+      "commandPalette": "Abrir paleta de comandos"
+    }
+  }
+}

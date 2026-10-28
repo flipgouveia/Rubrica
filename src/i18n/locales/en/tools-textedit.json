@@ -1,0 +1,43 @@
+{
+  "tools-textedit": {
+    "toolbar": {
+      "label": "Edit text & objects"
+    },
+    "shortcuts": {
+      "activate": "Activate text editing"
+    },
+    "panel": {
+      "title": "Text & Objects",
+      "noReflowHint": "Editing a text run only changes that run — surrounding text never reflows, unlike a word processor.",
+      "modeLabel": "Mode",
+      "modes": {
+        "select": "Select",
+        "addText": "Add text",
+        "addImage": "Add image"
+      },
+      "selectHint": "Click a run of text to select it. Click a selected run again to edit it in place.",
+      "addTextHint": "Click the page to place a {{width}}×{{height}}-point text box, or drag to size it yourself.",
+      "fontSizeLabel": "Font size",
+      "colorLabel": "Color",
+      "addImageHint": "Click the page to place a {{width}}×{{height}}-point image, or drag to size it yourself.",
+      "imagePathLabel": "Image file path",
+      "imagePathPlaceholder": "C:\\path\\to\\image.png",
+      "imagePathRequired": "Enter a file path before placing an image.",
+      "imageDeleteNote": "Placed images can't be selected or deleted afterwards — undo (Ctrl+Z) right after adding one if you need to remove it.",
+      "selectionLabel": "Selection",
+      "noSelection": "No text run selected.",
+      "selectedOnPage": "Text run selected on page {{page}}.",
+      "selectedText": "\"{{text}}\"",
+      "fontSubstitutedNote": "This run's original font couldn't be reused — a substitute font was applied."
+    },
+    "overlay": {
+      "ariaLabel": "Text and object editing layer",
+      "runLabel": "Text run: {{text}}",
+      "editPlaceholder": "Enter text...",
+      "newTextPlaceholder": "Type text for the new box...",
+      "imagePlacedLabel": "Image placed",
+      "fontSubstitutedBadge": "Font substituted",
+      "fontSubstitutedTooltip": "This run's embedded font couldn't be reused, so Rubrica applied a standard substitute font."
+    }
+  }
+}

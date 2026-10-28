@@ -1,0 +1,12 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Baseline window/app permissions for the main Rubrica window. Our own IPC commands (CONTRACTS §3) are app-defined, not plugin commands, so they don't need ACL entries here.",
+  "windows": ["*"],
+  "permissions": [
+    "core:default",
+    "updater:default",
+    "dialog:allow-open",
+    "dialog:allow-save"
+  ]
+}

@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pesquisa v2 — mockup</title>
+<!--
+  Mockup estático da Pesquisa v2 do Rubrica (agents/SEARCH-ORCHESTRATION.md §6).
+  Cores = tokens de src/tokens/tokens.css; as --search-* são tokens novos que o orquestrador
+  acrescenta no F2.0 (os agentes não editam tokens.css). Textos em pt-PT = os textos finais da UI (en traduz).
+  Nada aqui é código de produção: é a referência visual para S2/S6/S7.
+-->
+<style>
+:root{
+  color-scheme:light;
+  --background:#faf7f5;--surface:#fff;--surface-raised:#fff;--border:#e7dfda;--border-strong:#d3c6be;
+  --text:#241c1a;--muted:#6f625b;--accent:#a3243a;--accent-fg:#fff6f2;--danger:#b3261e;
+  --page:#fff;--page-text:#2b2522;--canvas:#ece6e2;
+  /* cores por termo (destaque sobre a página — iguais nos dois temas porque a página é sempre branca) */
+  --search-t1:rgb(250 204 21/.55);--search-t2:rgb(34 211 238/.45);--search-t3:rgb(244 114 182/.45);--search-t4:rgb(74 222 128/.5);
+  --search-t1s:#ca8a04;--search-t2s:#0891b2;--search-t3s:#db2777;--search-t4s:#16a34a;
+  --search-active:#b45309;--search-window:rgb(163 36 58/.07);--search-window-line:rgb(163 36 58/.55);
+  --shadow:0 8px 24px -4px rgb(0 0 0/.18),0 2px 8px -2px rgb(0 0 0/.12);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;--background:#17120f;--surface:#1e1815;--surface-raised:#26201c;--border:#362d27;
+  --border-strong:#4a3e36;--text:#f3ece7;--muted:#b2a69d;--accent:#e6808f;--accent-fg:#2a0f14;--canvas:#120e0c;
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark;--background:#17120f;--surface:#1e1815;--surface-raised:#26201c;--border:#362d27;
+  --border-strong:#4a3e36;--text:#f3ece7;--muted:#b2a69d;--accent:#e6808f;--accent-fg:#2a0f14;--canvas:#120e0c;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--background);color:var(--text);font:14px/1.45 "Instrument Sans",ui-sans-serif,system-ui,sans-serif}
+h1,h2,h3{font-family:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;margin:0}
+.doc{max-width:1440px;margin:0 auto;padding:28px 16px 64px}
+.doc>header{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.doc>header p{margin:4px 0 0;color:var(--muted);max-width:760px}
+.theme-btn{border:1px solid var(--border-strong);background:var(--surface);color:var(--text);border-radius:6px;padding:6px 10px;cursor:pointer;font:inherit}
+.section-title{margin:40px 0 6px;font-size:20px}
+.section-sub{margin:0 0 14px;color:var(--muted)}
+.scroll-x{overflow-x:auto;padding-bottom:6px}
+
+/* ---------- app frame ---------- */
+.app{min-width:1340px;height:780px;border:1px solid var(--border);border-radius:16px;overflow:hidden;background:var(--background);display:grid;grid-template-rows:44px 1fr;box-shadow:0 24px 48px -24px rgb(0 0 0/.25)}
+.toolbar{display:flex;align-items:center;gap:6px;padding:0 10px;border-bottom:1px solid var(--border);background:var(--surface)}
+.tb-btn{width:30px;height:30px;border-radius:6px;display:grid;place-items:center;color:var(--muted)}
+.tb-btn.on{background:color-mix(in srgb,var(--accent) 14%,transparent);color:var(--accent)}
+.tab{height:30px;padding:0 12px;border-radius:6px;display:flex;align-items:center;gap:8px;font-size:13px;background:var(--background);border:1px solid var(--border)}
+.spacer{flex:1}
+.body{display:grid;grid-template-columns:230px 1fr 370px;min-height:0}
+/* painel de pesquisa acoplado à direita: a página encolhe, nunca fica tapada */
+.search-side{border-left:1px solid var(--border);background:var(--surface);display:flex;flex-direction:column;min-height:0}
+.search-side .panel{width:auto;border:0;border-radius:0;box-shadow:none;display:flex;flex-direction:column;min-height:0;flex:1;background:var(--surface)}
+.search-side .results{max-height:none;flex:1;overflow:auto}
+.side-head{display:flex;align-items:center;justify-content:space-between;padding:4px 6px 4px 12px;border-bottom:1px solid var(--border);font-weight:600;font-size:13px}
+/* barra compacta (Ctrl+F): uma só linha no canto do viewer */
+.findbar{display:flex;align-items:center;gap:4px;padding:5px;border:1px solid var(--border);border-radius:10px;background:var(--surface-raised);box-shadow:var(--shadow);width:420px;font-size:12px;color:var(--muted)}
+.findbar .input{height:28px}
+.findbar .cnt{white-space:nowrap;font-variant-numeric:tabular-nums;padding:0 4px}
+
+/* ---------- outline sidebar ---------- */
+.side{border-right:1px solid var(--border);background:var(--surface);display:flex;flex-direction:column;min-height:0}
+.side-tabs{display:flex;gap:2px;padding:8px;border-bottom:1px solid var(--border)}
+.side-tab{flex:1;text-align:center;padding:5px 0;border-radius:6px;font-size:12px;color:var(--muted)}
+.side-tab.on{background:var(--background);color:var(--text);font-weight:600}
+.outline{padding:6px;overflow:auto;font-size:13px}
+.oi{display:flex;align-items:center;gap:6px;padding:5px 6px;border-radius:6px;color:var(--text);position:relative}
+.oi .pg{margin-left:auto;color:var(--muted);font-size:11px;font-variant-numeric:tabular-nums}
+.oi .cnt{font-size:10px;padding:0 6px;border-radius:999px;background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent);font-weight:600}
+.oi.d1{padding-left:24px}.oi.d2{padding-left:40px}
+.oi.cur{background:color-mix(in srgb,var(--accent) 10%,transparent)}
+.oi.cur::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:3px;border-radius:2px;background:var(--accent)}
+.chev{width:12px;color:var(--muted);font-size:10px}
+
+/* ---------- viewer ---------- */
+.viewer{position:relative;background:var(--canvas);overflow:hidden}
+.pages{position:absolute;inset:0 30px 0 0;overflow:hidden;display:flex;flex-direction:column;align-items:center;gap:18px;padding:22px 0}
+.page{width:540px;flex:none;background:var(--page);color:var(--page-text);box-shadow:0 1px 3px rgb(0 0 0/.2);padding:34px 54px 30px;font:12.5px/1.65 Georgia,"Times New Roman",serif;position:relative}
+.page .running{display:flex;justify-content:space-between;font:10.5px/1 system-ui,sans-serif;color:#8a7f79;margin-bottom:20px}
+.page .running.dim,.page .foot.dim{opacity:.35;text-decoration:line-through}
+.page .foot{position:absolute;bottom:14px;left:0;right:0;text-align:center;font:10.5px/1 system-ui,sans-serif;color:#8a7f79}
+.page h4{font:600 15px/1.3 Georgia,serif;margin:0 0 10px}
+.page p{margin:0 0 10px;text-align:justify}
+mark{color:inherit;border-radius:2px;padding:0 1px}
+mark.t1{background:var(--search-t1)}mark.t2{background:var(--search-t2)}mark.t3{background:var(--search-t3)}mark.t4{background:var(--search-t4)}
+mark.active{outline:2px solid var(--search-active);outline-offset:1px}
+.win{background:var(--search-window);box-shadow:0 0 0 1.5px var(--search-window-line);border-radius:4px;padding:3px 4px;margin:0 -4px;display:block}
+.win-label{position:absolute;right:-2px;transform:translateX(100%);font:600 10px/1 system-ui,sans-serif;color:var(--accent);background:var(--surface);border:1px solid var(--border);padding:3px 6px;border-radius:999px;white-space:nowrap}
+
+/* ---------- density map ---------- */
+.density{position:absolute;top:0;right:0;bottom:0;width:30px;border-left:1px solid var(--border);background:color-mix(in srgb,var(--surface) 85%,transparent)}
+.density .track{position:absolute;inset:8px 8px 8px 8px}
+.bucket{position:absolute;left:0;right:0;border-radius:1px;background:var(--accent)}
+.chap-tick{position:absolute;left:-8px;right:-8px;height:1px;background:var(--border-strong)}
+.viewport-ind{position:absolute;left:-5px;right:-5px;border:1.5px solid var(--text);border-radius:3px;opacity:.55}
+.active-mark{position:absolute;left:-7px;width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:6px solid var(--search-active)}
+.density-tip{position:absolute;right:36px;font-size:12px;background:var(--text);color:var(--background);padding:5px 8px;border-radius:6px;white-space:nowrap;box-shadow:var(--shadow)}
+
+/* ---------- search panel ---------- */
+.panel{width:400px;border:1px solid var(--border);border-radius:10px;background:var(--surface-raised);box-shadow:var(--shadow);font-size:13px;color:var(--text)}
+.viewer .findbar{position:absolute;top:10px;right:42px;z-index:5}
+.row{display:flex;align-items:center;gap:6px;padding:8px}
+.row+.row{padding-top:0}
+.sep{border-top:1px solid var(--border)}
+.input{flex:1;height:32px;border:1px solid var(--border-strong);border-radius:6px;background:var(--surface);display:flex;align-items:center;gap:6px;padding:0 8px;min-width:0;outline:2px solid color-mix(in srgb,var(--accent) 70%,transparent);outline-offset:-1px}
+.input.idle{outline:none}
+.input .q{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.input .caret{width:1px;height:16px;background:var(--text);animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.ib{width:28px;height:28px;border-radius:6px;display:grid;place-items:center;color:var(--muted);flex:none;font:600 12px/1 system-ui,sans-serif;border:1px solid transparent}
+.ib.on{background:color-mix(in srgb,var(--accent) 14%,transparent);color:var(--accent);border-color:color-mix(in srgb,var(--accent) 30%,transparent)}
+.seg{display:inline-flex;border:1px solid var(--border-strong);border-radius:6px;overflow:hidden;flex:none}
+.seg span{padding:4px 10px;font-size:12px;color:var(--muted)}
+.seg span.on{background:var(--accent);color:var(--accent-fg);font-weight:600}
+.lbl{color:var(--muted);font-size:12px;flex:none}
+.select{height:28px;border:1px solid var(--border-strong);border-radius:6px;padding:0 8px;display:flex;align-items:center;gap:6px;background:var(--surface);font-size:12px;min-width:0}
+.select .v{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.select .caretd{margin-left:auto;color:var(--muted);font-size:10px}
+.num{width:64px;height:28px;border:1px solid var(--border-strong);border-radius:6px;display:flex;align-items:center;justify-content:flex-end;padding:0 8px;font-variant-numeric:tabular-nums;background:var(--surface)}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:12px;padding:2px 8px 2px 6px;border-radius:999px;border:1px solid var(--border)}
+.chip i{width:9px;height:9px;border-radius:2px;display:inline-block}
+.chip.ex{color:var(--muted);text-decoration:line-through}
+.presets{display:flex;gap:4px}
+.presets span{font-size:11px;padding:2px 7px;border-radius:999px;border:1px solid var(--border);color:var(--muted)}
+.presets span.on{border-color:var(--accent);color:var(--accent);font-weight:600}
+.toggles{display:flex;flex-wrap:wrap;gap:6px 14px;padding:0 8px 8px}
+.tg{display:flex;align-items:center;gap:6px;font-size:12px}
+.sw{width:26px;height:15px;border-radius:999px;background:var(--border-strong);position:relative;flex:none}
+.sw::after{content:"";position:absolute;top:2px;left:2px;width:11px;height:11px;border-radius:50%;background:#fff;transition:.2s}
+.sw.on{background:var(--accent)}.sw.on::after{left:13px}
+.status{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 8px;font-size:12px;color:var(--muted)}
+.status b{color:var(--text);font-weight:600}
+.progress{height:3px;background:var(--border);margin:0 8px;border-radius:2px;overflow:hidden}
+.progress i{display:block;height:100%;background:var(--accent)}
+.sortsel{font-size:12px;color:var(--text);display:flex;align-items:center;gap:4px}
+.results{max-height:330px;overflow:hidden;border-top:1px solid var(--border)}
+.grp{display:flex;align-items:center;gap:6px;padding:7px 10px;font-size:12px;font-weight:600;background:var(--background);border-bottom:1px solid var(--border);position:sticky;top:0}
+.grp .n{margin-left:auto;color:var(--muted);font-weight:500}
+.hit{display:grid;grid-template-columns:38px 1fr;gap:8px;padding:7px 10px;border-bottom:1px solid color-mix(in srgb,var(--border) 60%,transparent)}
+.hit.on{background:color-mix(in srgb,var(--accent) 10%,transparent);box-shadow:inset 3px 0 0 var(--accent)}
+.hit .p{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;padding-top:2px}
+.hit .p small{display:block;font-size:10px}
+.snip{font-size:12.5px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.snip mark{padding:0 1px}
+.meta{font-size:10.5px;color:var(--muted);margin-top:2px}
+.foot-hint{display:flex;gap:10px;justify-content:flex-end;padding:6px 10px;font-size:11px;color:var(--muted);border-top:1px solid var(--border)}
+kbd{font:10px/1 "JetBrains Mono",ui-monospace,monospace;border:1px solid var(--border-strong);border-bottom-width:2px;border-radius:4px;padding:2px 4px;background:var(--surface)}
+
+/* dropdown */
+.dd{border:1px solid var(--border);border-radius:10px;background:var(--surface-raised);box-shadow:var(--shadow);padding:6px;font-size:13px;width:300px}
+.dd .opt{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:6px}
+.dd .opt.on{background:color-mix(in srgb,var(--accent) 12%,transparent);color:var(--accent);font-weight:600}
+.dd .opt.dis{color:var(--muted);opacity:.6}
+.dd .opt small{margin-left:auto;color:var(--muted);font-weight:400;font-size:11px}
+.dd hr{border:0;border-top:1px solid var(--border);margin:6px 0}
+.dd .tree{max-height:150px;overflow:hidden;padding-left:4px}
+.dd .range{display:flex;align-items:center;gap:6px;padding:6px 8px}
+.dd .range .num{width:56px}
+.dd .hint{font-size:11px;color:var(--muted);padding:0 8px 4px}
+.palette{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:6px 8px}
+.palette i{height:26px;border-radius:6px;display:block;border:1px solid rgb(0 0 0/.08)}
+.palette i.sel{outline:2px solid var(--text);outline-offset:2px}
+.hexin{display:inline-flex;align-items:center;gap:6px;font:12px "JetBrains Mono",ui-monospace,monospace;border:1px solid var(--border-strong);border-radius:6px;padding:3px 8px}
+.hexin i{width:14px;height:14px;border-radius:3px;display:inline-block}
+
+/* gallery */
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(400px,1fr));gap:22px;align-items:start}
+.card h3{font-size:15px;margin:0 0 4px}
+.card p{margin:0 0 10px;color:var(--muted);font-size:13px}
+.empty{padding:22px 16px;text-align:center;color:var(--muted);font-size:13px}
+.empty strong{display:block;color:var(--text);margin-bottom:4px;font-size:14px}
+.tooltip{display:inline-block;margin:4px 0 0 8px;font-size:11.5px;background:var(--text);color:var(--background);padding:5px 8px;border-radius:6px}
+
+/* specs */
+.specs{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.spec{border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:14px 16px}
+.spec h3{font-size:14px;margin-bottom:6px}
+.spec ul{margin:0;padding-left:18px;color:var(--muted);font-size:13px}
+.spec li{margin:3px 0}
+.spec code{font:12px "JetBrains Mono",ui-monospace,monospace;color:var(--text)}
+.swatches{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.swatches span{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--text)}
+.swatches i{width:22px;height:14px;border-radius:3px;display:inline-block;border:1px solid var(--border)}
+@media (max-width:520px){.gallery{grid-template-columns:1fr}.gallery .panel,.gallery .dd{width:100%}}
+</style>
+</head>
+<body>
+<div class="doc">
+<header>
+  <div>
+    <h1>Pesquisa v2 — mockup</h1>
+    <p>Referência visual da Fase 2 de <code>agents/SEARCH-ORCHESTRATION.md</code>: painel de pesquisa, cores por termo,
+    janela de proximidade, mapa de densidade e painel Índice. Os textos são os finais em pt-PT.</p>
+  </div>
+  <button class="theme-btn" onclick="var r=document.documentElement;r.dataset.theme=(r.dataset.theme==='dark'||(!r.dataset.theme&&matchMedia('(prefers-color-scheme: dark)').matches))?'light':'dark'">Alternar tema</button>
+</header>
+
+<h2 class="section-title">1 · Vista principal — painel acoplado, modo Proximidade</h2>
+<p class="section-sub">Pesquisa por <em>rescisão prazo indemnização</em> no capítulo atual, janela de 500 caracteres, a excluir o termo <em>anexo</em>.</p>
+
+<div class="scroll-x">
+<div class="app">
+  <div class="toolbar">
+    <div class="tb-btn">☰</div>
+    <div class="tab">📄 Contrato-de-prestação.pdf <span style="color:var(--muted)">×</span></div>
+    <div class="spacer"></div>
+    <div class="tb-btn">−</div><div style="font-size:12px;color:var(--muted)">125 %</div><div class="tb-btn">+</div>
+    <div class="tb-btn on" title="Localizar no documento (Ctrl+F)">⌕</div>
+    <div class="tb-btn">✎</div><div class="tb-btn">⋯</div>
+  </div>
+  <div class="body">
+    <!-- Painel lateral: separador Índice -->
+    <aside class="side">
+      <div class="side-tabs"><div class="side-tab">Miniaturas</div><div class="side-tab on">Índice</div></div>
+      <div class="outline">
+        <div class="oi"><span class="chev">▸</span>1. Objeto do contrato<span class="pg">1</span></div>
+        <div class="oi"><span class="chev">▸</span>2. Obrigações das partes<span class="pg">6</span></div>
+        <div class="oi"><span class="chev">▾</span><b>3. Rescisão do contrato</b><span class="cnt">6</span><span class="pg">14</span></div>
+        <div class="oi d1"><span class="chev"></span>3.1 Por iniciativa do cliente<span class="cnt">2</span><span class="pg">14</span></div>
+        <div class="oi d1 cur"><span class="chev"></span>3.2 Por incumprimento<span class="cnt">3</span><span class="pg">16</span></div>
+        <div class="oi d1"><span class="chev"></span>3.3 Efeitos da rescisão<span class="cnt">1</span><span class="pg">19</span></div>
+        <div class="oi"><span class="chev">▸</span>4. Preço e pagamento<span class="pg">21</span></div>
+        <div class="oi"><span class="chev">▸</span>5. Confidencialidade<span class="pg">27</span></div>
+        <div class="oi"><span class="chev">▸</span>6. Disposições finais<span class="pg">33</span></div>
+        <div class="oi"><span class="chev">▸</span>Anexos<span class="pg">37</span></div>
+      </div>
+    </aside>
+
+    <section class="viewer">
+      <div class="pages">
+        <div class="page">
+          <div class="running dim"><span>Contrato de Prestação de Serviços</span><span>Cap. 3 — Rescisão</span></div>
+          <h4>3.2 Rescisão por incumprimento</h4>
+          <p>Qualquer das partes pode resolver o presente contrato quando a outra parte incorra em incumprimento
+          grave e reiterado das obrigações previstas na cláusula segunda, desde que previamente notificada para
+          o sanar.</p>
+          <div style="position:relative">
+            <span class="win"><mark class="t1 active">Rescisão</mark> com justa causa: a parte lesada deve comunicar a intenção de
+            resolver por carta registada, concedendo um <mark class="t2">prazo</mark> não inferior a trinta dias para a
+            regularização da situação. Findo esse período sem que o incumprimento seja sanado, a resolução produz
+            efeitos imediatos e confere à parte lesada o direito a uma <mark class="t3">indemnização</mark> pelos danos
+            emergentes e lucros cessantes.</span>
+            <span class="win-label" style="top:-10px">Zona 1 · 268 car.</span>
+          </div>
+          <p style="margin-top:10px">A <mark class="t3">indemnização</mark> referida no número anterior não pode exceder o valor
+          total faturado nos doze meses anteriores, salvo dolo ou negligência grosseira.</p>
+          <p>O <mark class="t2">prazo</mark> de pré-aviso pode ser reduzido por acordo escrito entre as partes, devendo tal
+          acordo constar de adenda ao presente contrato.</p>
+          <div class="foot dim">Página 17 de 40</div>
+        </div>
+        <div class="page" style="height:200px">
+          <div class="running dim"><span>Cap. 3 — Rescisão</span><span>Contrato de Prestação de Serviços</span></div>
+          <p>Em caso de <mark class="t1">rescisão</mark> antecipada…</p>
+        </div>
+      </div>
+
+      <!-- Mapa de densidade (um bucket por página; 40 páginas) -->
+      <div class="density" role="img" aria-label="Mapa de densidade: 6 zonas nas páginas 14 a 19, a mais densa na página 17">
+        <div class="track" id="track"></div>
+      </div>
+      <!-- Tooltip do mapa (hover sobre o bucket da p. 17) -->
+      <div class="density-tip" style="top:286px">p. 17 · 2 zonas · 3.2 Por incumprimento</div>
+    </section>
+
+    <!-- Painel de pesquisa ACOPLADO à direita: o viewer encolhe, a página nunca fica tapada -->
+    <aside class="search-side">
+      <div class="side-head"><span>⌕ Pesquisa</span><span style="display:flex;gap:2px"><span class="ib" title="Compactar para a barra de uma linha">⇱</span><span class="ib" title="Fechar (Esc)">✕</span></span></div>
+      <div class="panel" role="search">
+        <div class="row">
+          <div class="input"><span class="q">rescisão prazo indemnização -anexo</span><span class="caret"></span></div>
+          <div class="ib" title="Maiúsculas/minúsculas">Aa</div>
+          <div class="ib" title="Palavra inteira">ab|</div>
+        </div>
+        <div class="row">
+          <div class="seg"><span>Frase</span><span class="on">Proximidade</span></div>
+          <div class="lbl" style="margin-left:6px">Janela</div>
+          <div class="num">500</div><div class="lbl">car.</div>
+        </div>
+        <div class="row" style="padding-top:0">
+          <div class="chips">
+            <span class="chip"><i style="background:var(--search-t1s)"></i>rescisão</span>
+            <span class="chip"><i style="background:var(--search-t2s)"></i>prazo</span>
+            <span class="chip"><i style="background:var(--search-t3s)"></i>indemnização</span>
+            <span class="chip ex">anexo</span>
+          </div>
+        </div>
+        <div class="row" style="padding-top:0">
+          <div class="lbl">Âmbito</div>
+          <div class="select" style="flex:1"><span>📑</span><span class="v">Capítulo atual — 3. Rescisão do contrato (p. 14–20)</span><span class="caretd">▾</span></div>
+        </div>
+        <div class="toggles">
+          <label class="tg"><span class="sw on"></span>Ignorar acentos</label>
+          <label class="tg"><span class="sw on"></span>Excluir cabeçalhos e rodapés</label>
+        </div>
+        <div class="sep"></div>
+        <div class="status">
+          <span><b>1</b> de <b>6</b> zonas · 7 páginas</span>
+          <span class="sortsel">Mais compactas ▾</span>
+          <span style="display:flex;gap:2px"><span class="ib">↑</span><span class="ib">↓</span></span>
+        </div>
+        <div class="results">
+          <div class="grp">▾ 3.2 Por incumprimento <span class="n">3</span></div>
+          <div class="hit on"><div class="p">p. 17<small>268 car.</small></div><div>
+            <div class="snip"><mark class="t1">Rescisão</mark> com justa causa… concedendo um <mark class="t2">prazo</mark> não inferior a trinta dias… direito a uma <mark class="t3">indemnização</mark> pelos danos</div></div></div>
+          <div class="hit"><div class="p">p. 16<small>341 car.</small></div><div>
+            <div class="snip">…o <mark class="t2">prazo</mark> de sanação; a <mark class="t1">rescisão</mark> só opera depois… sem prejuízo da <mark class="t3">indemnização</mark> devida</div></div></div>
+          <div class="hit"><div class="p">p. 17–18<small>472 car.</small></div><div>
+            <div class="snip">…<mark class="t3">indemnização</mark> referida no número anterior… O <mark class="t2">prazo</mark> de pré-aviso… em caso de <mark class="t1">rescisão</mark> antecipada</div>
+            <div class="meta">Atravessa a mudança de página</div></div></div>
+          <div class="grp">▾ 3.1 Por iniciativa do cliente <span class="n">2</span></div>
+          <div class="hit"><div class="p">p. 15<small>395 car.</small></div><div>
+            <div class="snip">O cliente pode pedir a <mark class="t1">rescisão</mark> mediante pré-aviso… no <mark class="t2">prazo</mark> de sessenta dias… sem lugar a <mark class="t3">indemnização</mark></div></div></div>
+        </div>
+        <div class="foot-hint"><span><kbd>Enter</kbd> seguinte</span><span><kbd>Shift</kbd>+<kbd>Enter</kbd> anterior</span><span><kbd>Esc</kbd> fechar</span></div>
+      </div>
+    </aside>
+  </div>
+</div>
+</div>
+
+<h2 class="section-title">2 · Estados do painel</h2>
+<p class="section-sub">Cada estado abaixo tem de existir na implementação (S2 trata da lista com contexto e do progresso; S6 trata do resto).</p>
+
+<div class="gallery">
+  <!-- 0: Barra compacta -->
+  <div class="card" style="grid-column:1/-1">
+    <h3>0 · Barra compacta (Ctrl+F)</h3>
+    <p>Para uma pesquisa rápida, Ctrl+F abre só esta barra de uma linha no canto superior direito do viewer, por cima da margem cinzenta, e não tapa a página. Se a janela for estreita, a página desce o suficiente para não ficar por baixo da barra. O botão <b>⇲</b> (ou <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>F</kbd>) expande para o painel acoplado completo, e o painel volta a esta barra com <b>⇱</b>. O sistema lembra-se do último modo usado.</p>
+    <div class="findbar">
+      <div class="input"><span class="q">justa causa</span><span class="caret"></span></div>
+      <span class="cnt"><b style="color:var(--text)">4</b> de 23</span>
+      <span class="ib">↑</span><span class="ib">↓</span>
+      <span class="ib" title="Pesquisa avançada (painel)">⇲</span>
+      <span class="ib">✕</span>
+    </div>
+  </div>
+
+  <!-- A: Frase (comportamento por omissão) -->
+  <div class="card">
+    <h3>A · Modo Frase (por omissão)</h3>
+    <p>Igual ao comportamento atual, mas com contexto, agrupado por capítulo e com contagem correta (uma ocorrência partida em duas linhas conta 1).</p>
+    <div class="panel">
+      <div class="row">
+        <div class="input"><span class="q">justa causa</span><span class="caret"></span></div>
+        <div class="ib">Aa</div><div class="ib on">ab|</div>
+      </div>
+      <div class="row">
+        <div class="seg"><span class="on">Frase</span><span>Proximidade</span></div>
+        <div class="select" style="flex:1"><span>📄</span><span class="v">Documento inteiro</span><span class="caretd">▾</span></div>
+      </div>
+      <div class="toggles">
+        <label class="tg"><span class="sw on"></span>Ignorar acentos</label>
+        <label class="tg"><span class="sw"></span>Excluir cabeçalhos e rodapés</label>
+      </div>
+      <div class="sep"></div>
+      <div class="status"><span><b>4</b> de <b>23</b> resultados</span><span style="display:flex;gap:2px"><span class="ib">↑</span><span class="ib">↓</span><span class="ib">✕</span></span></div>
+      <div class="results" style="max-height:none">
+        <div class="grp">▸ 2. Obrigações das partes <span class="n">5</span></div>
+        <div class="grp">▾ 3. Rescisão do contrato <span class="n">11</span></div>
+        <div class="hit"><div class="p">p. 14</div><div class="snip">…pode ser resolvido com <mark class="t1">justa causa</mark> por qualquer das partes, nos termos…</div></div>
+        <div class="hit on"><div class="p">p. 17</div><div class="snip">Rescisão com <mark class="t1 active">justa causa</mark>: a parte lesada deve comunicar a intenção de…</div></div>
+        <div class="hit"><div class="p">p. 18</div><div class="snip">…a inexistência de <mark class="t1">justa causa</mark> obriga a parte que resolveu a…</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- B: A pesquisar (progresso) -->
+  <div class="card">
+    <h3>B · A pesquisar — progresso</h3>
+    <p>Os resultados vão aparecendo enquanto a pesquisa corre. O progresso mostra "página X de N". Na proximidade, a ordenação "Mais compactas" só é aplicada quando a pesquisa termina, e até lá a lista fica por posição.</p>
+    <div class="panel">
+      <div class="row">
+        <div class="input idle"><span class="q">contrato</span></div>
+        <div class="ib">Aa</div><div class="ib">ab|</div>
+      </div>
+      <div class="progress"><i style="width:42%"></i></div>
+      <div class="status"><span>A pesquisar… página <b>212</b> de <b>500</b> · 87 resultados</span><span style="display:flex;gap:2px"><span class="ib">✕</span></span></div>
+      <div class="results" style="max-height:none">
+        <div class="grp">▾ 1. Objeto do contrato <span class="n">31</span></div>
+        <div class="hit"><div class="p">p. 1</div><div class="snip">O presente <mark class="t1">contrato</mark> tem por objeto a prestação de serviços de…</div></div>
+        <div class="hit"><div class="p">p. 2</div><div class="snip">…as partes acordam que o <mark class="t1">contrato</mark> vigora pelo período de…</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- C: Âmbito aberto -->
+  <div class="card">
+    <h3>C · Seletor de âmbito aberto</h3>
+    <p>Documento inteiro, capítulo atual, escolher um capítulo na árvore ou um intervalo de páginas (1-based). O número ao lado de cada opção é a quantidade de páginas.</p>
+    <div class="dd">
+      <div class="opt">📄 Documento inteiro <small>40 p.</small></div>
+      <div class="opt on">📑 Capítulo atual — 3. Rescisão <small>7 p.</small></div>
+      <hr>
+      <div class="hint">Escolher capítulo</div>
+      <div class="tree">
+        <div class="oi"><span class="chev">▸</span>1. Objeto do contrato<span class="pg">1–5</span></div>
+        <div class="oi"><span class="chev">▸</span>2. Obrigações das partes<span class="pg">6–13</span></div>
+        <div class="oi"><span class="chev">▾</span>3. Rescisão do contrato<span class="pg">14–20</span></div>
+        <div class="oi d1"><span class="chev"></span>3.2 Por incumprimento<span class="pg">16–18</span></div>
+        <div class="oi"><span class="chev">▸</span>4. Preço e pagamento<span class="pg">21–26</span></div>
+      </div>
+      <hr>
+      <div class="range">Páginas <span class="num">14</span> a <span class="num">20</span></div>
+      <div class="hint">De 1 a 40</div>
+    </div>
+  </div>
+
+  <!-- D: Janela -->
+  <div class="card">
+    <h3>D · Janela de proximidade</h3>
+    <p>Valor em caracteres, 500 por omissão. Tem predefinições rápidas e aceita um valor livre entre 20 e 5000. A escolha fica guardada para pesquisas futuras.</p>
+    <div class="panel">
+      <div class="row">
+        <div class="seg"><span>Frase</span><span class="on">Proximidade</span></div>
+        <div class="lbl" style="margin-left:6px">Janela</div>
+        <div class="num">500</div><div class="lbl">car.</div>
+      </div>
+      <div class="row" style="padding-top:0"><div class="presets"><span>100</span><span>250</span><span class="on">500</span><span>1000</span></div></div>
+      <div class="row" style="padding-top:0"><div class="chips">
+        <span class="chip"><i style="background:var(--search-t1s)"></i>rescisão</span>
+        <span class="chip"><i style="background:var(--search-t2s)"></i>prazo</span>
+        <span class="chip"><i style="background:var(--search-t3s)"></i>indemnização</span>
+        <span class="chip"><i style="background:var(--search-t4s)"></i>"justa causa"</span>
+      </div></div>
+      <div class="row" style="padding-top:0;color:var(--muted);font-size:12px">Use <code>"…"</code> para frases exatas e <code>-palavra</code> para excluir.</div>
+    </div>
+  </div>
+
+  <!-- G: Editar cores -->
+  <div class="card">
+    <h3>G · Editar as cores do destaque</h3>
+    <p>Clicar na cor de uma etiqueta abre esta paleta. A cor fica associada à <b>posição</b> (cor 1, 2, 3, 4), não à palavra, e é guardada nas preferências. A transparência é fixa para o texto da página continuar legível. Também existe em Definições → Pesquisa.</p>
+    <div class="panel" style="position:relative;padding-bottom:215px">
+      <div class="row"><div class="chips">
+        <span class="chip"><i style="background:var(--search-t1s)"></i>rescisão</span>
+        <span class="chip" style="border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 25%,transparent)"><i style="background:var(--search-t2s)"></i>prazo</span>
+        <span class="chip"><i style="background:var(--search-t3s)"></i>indemnização</span>
+      </div></div>
+      <div class="dd" style="position:absolute;left:70px;top:44px;width:250px">
+        <div class="hint" style="padding-top:4px">Cor 2 — <b style="color:var(--text)">prazo</b></div>
+        <div class="palette">
+          <i style="background:#facc15"></i><i class="sel" style="background:#22d3ee"></i><i style="background:#f472b6"></i><i style="background:#4ade80"></i>
+          <i style="background:#fb923c"></i><i style="background:#a78bfa"></i><i style="background:#60a5fa"></i><i style="background:#f87171"></i>
+        </div>
+        <div class="range" style="justify-content:space-between"><span style="font-size:12px">Personalizada</span><span class="hexin"><i style="background:#22d3ee"></i>#22D3EE</span></div>
+        <hr>
+        <div class="range" style="justify-content:space-between;font-size:12px"><span style="color:var(--accent);white-space:nowrap">Repor originais</span><span style="color:var(--muted);white-space:nowrap">Exemplo: <mark style="background:rgb(34 211 238/.45)">prazo</mark></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- E: Sem índice -->
+  <div class="card">
+    <h3>E · PDF sem índice</h3>
+    <p>As opções de capítulo ficam desativadas, com uma explicação. O intervalo de páginas continua disponível, e o separador Índice mostra um estado vazio.</p>
+    <div class="dd">
+      <div class="opt on">📄 Documento inteiro <small>40 p.</small></div>
+      <div class="opt dis">📑 Capítulo atual</div>
+      <div class="opt dis">📚 Escolher capítulo…</div>
+      <span class="tooltip">Este PDF não tem índice (marcadores).</span>
+      <hr>
+      <div class="range">Páginas <span class="num">1</span> a <span class="num">40</span></div>
+    </div>
+  </div>
+
+  <!-- F: Sem texto / sem resultados -->
+  <div class="card">
+    <h3>F · Sem resultados e sem texto</h3>
+    <p>Duas mensagens diferentes: "sem resultados" sugere alargar a pesquisa, e "sem texto" explica que o PDF é digitalizado.</p>
+    <div class="panel">
+      <div class="empty"><strong>Sem resultados</strong>Nenhuma zona com os 3 termos em 500 caracteres.<br>
+        <span style="color:var(--accent)">Aumentar janela para 1000</span> · <span style="color:var(--accent)">Pesquisar no documento inteiro</span></div>
+      <div class="sep"></div>
+      <div class="empty"><strong>Este documento não tem texto pesquisável</strong>Parece ser um documento digitalizado (só imagens). O OCR ainda não é suportado.</div>
+    </div>
+  </div>
+</div>
+
+<h2 class="section-title">3 · Especificação</h2>
+<div class="specs">
+  <div class="spec"><h3>Painel</h3><ul>
+    <li><b>Nunca tapa a página.</b> Há dois modos:
+      <b>barra compacta</b> (Ctrl+F): uma linha flutuante sobre a margem do viewer.
+      <b>Painel acoplado</b>: uma coluna à direita com <code>370px</code> (redimensionável entre 300 e 520). O viewer encolhe e o zoom "ajustar à largura" recalcula.</li>
+    <li>O mapa de densidade fica sempre colado à barra de scroll do viewer, entre a página e o painel.</li>
+    <li>Ao ativar um resultado, se o retângulo estiver por baixo da barra compacta, o scroll compensa a altura da barra.</li>
+    <li>Âmbito "Capítulo atual" = a entrada de <b>nível superior</b> do índice que contém a página visível (ex.: "3. Rescisão do contrato", p. 14–20). Um subcapítulo escolhe-se na árvore.</li>
+    <li>Ordem: campo + Aa + palavra inteira → modo + janela → chips de termos (só em Proximidade) → âmbito → opções → estado → lista.</li>
+    <li>Estado guardado <b>por documento</b>: mudar de separador e voltar mantém a query e os resultados.</li>
+    <li>Preferências persistidas: modo, janela, ignorar acentos, excluir cabeçalhos/rodapés.</li>
+    <li><b>Excluir cabeçalhos e rodapés</b> vem <b>desligado</b> por omissão. <b>Ignorar acentos</b> vem ligado.</li>
+  </ul></div>
+  <div class="spec"><h3>Lista de resultados</h3><ul>
+    <li>Virtualizada (<code>@tanstack/react-virtual</code>), grupos por capítulo colapsáveis, com o cabeçalho de grupo fixo no topo.</li>
+    <li>Linha: página (ou "p. 17–18" se atravessa páginas), comprimento da janela, excerto de 2 linhas com destaque por termo.</li>
+    <li>Grupos = a entrada mais profunda do índice onde o resultado começa. Sem índice, lista plana.</li>
+    <li>Contagem: "X de N resultados" (Frase) ou "X de N zonas" (Proximidade). "X" e ↑/↓ seguem a ordem visível da lista.</li>
+    <li>Ordenação (só em Proximidade): <i>Mais compactas</i> (por omissão: dentro de cada grupo por compacidade, e os grupos pelo seu resultado mais compacto) ou <i>Por posição</i> (ordem do documento).</li>
+  </ul></div>
+  <div class="spec"><h3>Destaque na página</h3><ul>
+    <li>Uma cor por termo, por esta ordem (até 4, depois repetem):
+      <div class="swatches"><span><i style="background:var(--search-t1)"></i>1</span><span><i style="background:var(--search-t2)"></i>2</span><span><i style="background:var(--search-t3)"></i>3</span><span><i style="background:var(--search-t4)"></i>4</span></div></li>
+    <li>Modo Frase: tudo na cor 1, como agora.</li>
+    <li><b>Cores editáveis</b> (estado G): cada posição 1–4 pode ser trocada por uma de 8 predefinições ou por um hex livre. A opacidade fica sempre a ~50 %. O botão "Repor" volta às cores originais. Preferências <code>search.highlightColors</code> (via <code>prefs_get</code>/<code>prefs_set</code>, como em <code>prefsStore.ts</code>). Pontos de entrada: a cor da etiqueta no painel e Definições → Pesquisa.</li>
+    <li>Zona ativa: retângulo suave da janela (accent 7 % + contorno) e o termo ativo com contorno âmbar.</li>
+    <li>Ativar um resultado faz scroll até ao retângulo, não só até à página.</li>
+    <li>Cabeçalhos e rodapés excluídos ficam esbatidos e riscados, para se perceber o que foi ignorado (retângulos em <code>SearchBatch.furniture</code>).</li>
+    <li>Cores: tokens <code>--search-t1..t4</code> (destaque), <code>--search-t1s..t4s</code> (etiquetas), <code>--search-active</code> (contorno do ativo), <code>--search-window</code>/<code>--search-window-line</code>.</li>
+  </ul></div>
+  <div class="spec"><h3>Mapa de densidade</h3><ul>
+    <li>Faixa de 30px à direita do viewer, visível só quando há resultados. Mostra só os resultados do âmbito.</li>
+    <li>Um bucket por página (agrupado quando há mais de 1 página por pixel). A opacidade segue <code>log(1+n)</code>, em accent.</li>
+    <li>Marcas: fronteiras dos capítulos (linha fina), retângulo da área visível e triângulo âmbar no resultado ativo.</li>
+    <li>Hover mostra uma tooltip "p. 16–17 · 4 zonas · 3.2 Por incumprimento" ("resultados" no modo Frase; sem capítulo se o PDF não tiver índice). Clicar salta para lá.</li>
+    <li>Tem <code>role="img"</code> com resumo textual e não depende só da cor.</li>
+  </ul></div>
+  <div class="spec"><h3>Painel Índice</h3><ul>
+    <li>Novo separador "Índice" ao lado de "Miniaturas" no painel lateral.</li>
+    <li>Árvore colapsável com o número da página. Clicar navega.</li>
+    <li>A entrada mais profunda que contém a página visível fica destacada (barra accent) e atualiza com o scroll. Não confundir com o âmbito "Capítulo atual", que usa a entrada de nível superior.</li>
+    <li>Com pesquisa ativa, cada capítulo mostra um contador de resultados.</li>
+  </ul></div>
+  <div class="spec"><h3>Teclado</h3><ul>
+    <li><kbd>Ctrl</kbd>+<kbd>F</kbd> abre a barra compacta ou foca o campo e seleciona o texto.</li>
+    <li><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>F</kbd> abre o painel acoplado.</li>
+    <li><kbd>Enter</kbd> / <kbd>F3</kbd> seguinte · <kbd>Shift</kbd>+<kbd>Enter</kbd> / <kbd>Shift</kbd>+<kbd>F3</kbd> anterior · <kbd>Esc</kbd> fecha (e cancela a pesquisa).</li>
+    <li><kbd>Alt</kbd>+<kbd>P</kbd> alterna Frase/Proximidade (verificar colisões).</li>
+  </ul></div>
+</div>
+</div>
+
+<script>
+// Mapa de densidade de exemplo: 40 páginas, âmbito = cap. 3 (p. 14–20), por isso só há buckets nessas páginas.
+// 6 zonas = as da lista: 3.1 (p. 14, 15), 3.2 (p. 16, 17, 17–18 contada na p. 17), 3.3 (p. 19).
+(function(){
+  var counts=[0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,2,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+  var chapters=[0,5,13,20,26,32,36];
+  var t=document.getElementById('track'),n=counts.length,max=Math.log(1+Math.max.apply(null,counts));
+  counts.forEach(function(c,i){if(!c)return;var b=document.createElement('div');b.className='bucket';
+    b.style.top=(i/n*100)+'%';b.style.height='calc('+(100/n)+'% - 1px)';b.style.opacity=(0.25+0.75*Math.log(1+c)/max).toFixed(2);t.appendChild(b);});
+  chapters.forEach(function(p){if(!p)return;var k=document.createElement('div');k.className='chap-tick';k.style.top=(p/n*100)+'%';t.appendChild(k);});
+  var v=document.createElement('div');v.className='viewport-ind';v.style.top=(16/n*100)+'%';v.style.height=(1.6/n*100)+'%';t.appendChild(v);
+  var a=document.createElement('div');a.className='active-mark';a.style.top='calc('+(16.4/n*100)+'% - 5px)';t.appendChild(a);
+})();
+</script>
+</body>
+</html>

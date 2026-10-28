@@ -1,0 +1,488 @@
+{
+  "pageCount": 40,
+  "pageSize": {
+    "width": 612,
+    "height": 792
+  },
+  "outline": [
+    {
+      "title": "1 Introdução",
+      "page": 1,
+      "pageLabel": 2,
+      "pageEnd": 7,
+      "depth": 0,
+      "children": [
+        {
+          "title": "1.1 Âmbito",
+          "page": 1,
+          "pageLabel": 2,
+          "pageEnd": 3,
+          "depth": 1,
+          "children": []
+        },
+        {
+          "title": "1.2 Definições",
+          "page": 4,
+          "pageLabel": 5,
+          "pageEnd": 7,
+          "depth": 1,
+          "children": []
+        }
+      ]
+    },
+    {
+      "title": "2 Formação do contrato",
+      "page": 8,
+      "pageLabel": 9,
+      "pageEnd": 14,
+      "depth": 0,
+      "children": [
+        {
+          "title": "2.1 Proposta",
+          "page": 8,
+          "pageLabel": 9,
+          "pageEnd": 10,
+          "depth": 1,
+          "children": []
+        },
+        {
+          "title": "2.2 Aceitação",
+          "page": 11,
+          "pageLabel": 12,
+          "pageEnd": 12,
+          "depth": 1,
+          "children": []
+        },
+        {
+          "title": "2.3 Forma",
+          "page": 13,
+          "pageLabel": 14,
+          "pageEnd": 14,
+          "depth": 1,
+          "children": []
+        }
+      ]
+    },
+    {
+      "title": "3 Cessação do contrato",
+      "page": 15,
+      "pageLabel": 16,
+      "pageEnd": 22,
+      "depth": 0,
+      "children": [
+        {
+          "title": "3.1 Por acordo",
+          "page": 15,
+          "pageLabel": 16,
+          "pageEnd": 15,
+          "depth": 1,
+          "children": []
+        },
+        {
+          "title": "3.2 Por incumprimento",
+          "page": 16,
+          "pageLabel": 17,
+          "pageEnd": 19,
+          "depth": 1,
+          "children": [
+            {
+              "title": "3.2.1 Incumprimento definitivo",
+              "page": 18,
+              "pageLabel": 19,
+              "pageEnd": 19,
+              "depth": 2,
+              "children": []
+            }
+          ]
+        },
+        {
+          "title": "3.3 Efeitos",
+          "page": 20,
+          "pageLabel": 21,
+          "pageEnd": 22,
+          "depth": 1,
+          "children": []
+        }
+      ]
+    },
+    {
+      "title": "4 Prazos e notificações",
+      "page": 23,
+      "pageLabel": 24,
+      "pageEnd": 30,
+      "depth": 0,
+      "children": [
+        {
+          "title": "4.1 Contagem de prazos",
+          "page": 23,
+          "pageLabel": 24,
+          "pageEnd": 26,
+          "depth": 1,
+          "children": []
+        },
+        {
+          "title": "4.2 Notificações",
+          "page": 27,
+          "pageLabel": 28,
+          "pageEnd": 30,
+          "depth": 1,
+          "children": []
+        }
+      ]
+    },
+    {
+      "title": "5 Disposições finais",
+      "page": 31,
+      "pageLabel": 32,
+      "pageEnd": 39,
+      "depth": 0,
+      "children": [
+        {
+          "title": "5.1 Lei aplicável",
+          "page": 31,
+          "pageLabel": 32,
+          "pageEnd": 34,
+          "depth": 1,
+          "children": []
+        },
+        {
+          "title": "5.2 Foro",
+          "page": 35,
+          "pageLabel": 36,
+          "pageEnd": 39,
+          "depth": 1,
+          "children": []
+        }
+      ]
+    }
+  ],
+  "header": {
+    "even": "Manual de Contratos",
+    "oddByChapter": {
+      "1 Introdução": [
+        2,
+        4,
+        6
+      ],
+      "2 Formação do contrato": [
+        8,
+        10,
+        12,
+        14
+      ],
+      "3 Cessação do contrato": [
+        16,
+        18,
+        20,
+        22
+      ],
+      "4 Prazos e notificações": [
+        24,
+        26,
+        28,
+        30
+      ],
+      "5 Disposições finais": [
+        32,
+        34,
+        36,
+        38
+      ]
+    },
+    "byPage": {
+      "1": "Manual de Contratos",
+      "2": "1 Introdução",
+      "3": "Manual de Contratos",
+      "4": "1 Introdução",
+      "5": "Manual de Contratos",
+      "6": "1 Introdução",
+      "7": "Manual de Contratos",
+      "8": "2 Formação do contrato",
+      "9": "Manual de Contratos",
+      "10": "2 Formação do contrato",
+      "11": "Manual de Contratos",
+      "12": "2 Formação do contrato",
+      "13": "Manual de Contratos",
+      "14": "2 Formação do contrato",
+      "15": "Manual de Contratos",
+      "16": "3 Cessação do contrato",
+      "17": "Manual de Contratos",
+      "18": "3 Cessação do contrato",
+      "19": "Manual de Contratos",
+      "20": "3 Cessação do contrato",
+      "21": "Manual de Contratos",
+      "22": "3 Cessação do contrato",
+      "23": "Manual de Contratos",
+      "24": "4 Prazos e notificações",
+      "25": "Manual de Contratos",
+      "26": "4 Prazos e notificações",
+      "27": "Manual de Contratos",
+      "28": "4 Prazos e notificações",
+      "29": "Manual de Contratos",
+      "30": "4 Prazos e notificações",
+      "31": "Manual de Contratos",
+      "32": "5 Disposições finais",
+      "33": "Manual de Contratos",
+      "34": "5 Disposições finais",
+      "35": "Manual de Contratos",
+      "36": "5 Disposições finais",
+      "37": "Manual de Contratos",
+      "38": "5 Disposições finais",
+      "39": "Manual de Contratos"
+    },
+    "firstPage": 1,
+    "baselineY": 752
+  },
+  "footer": {
+    "pattern": "Página {n} de 40",
+    "firstPage": 1,
+    "baselineY": 30
+  },
+  "contrato": {
+    "total": 189,
+    "byPage": {
+      "1": 6,
+      "2": 3,
+      "3": 1,
+      "4": 5,
+      "5": 9,
+      "6": 5,
+      "7": 3,
+      "8": 9,
+      "9": 4,
+      "10": 12,
+      "11": 1,
+      "12": 6,
+      "13": 5,
+      "14": 5,
+      "15": 3,
+      "16": 6,
+      "17": 5,
+      "18": 9,
+      "19": 3,
+      "20": 5,
+      "21": 4,
+      "22": 10,
+      "23": 6,
+      "24": 4,
+      "25": 6,
+      "26": 5,
+      "27": 3,
+      "28": 4,
+      "29": 3,
+      "30": 11,
+      "31": 1,
+      "32": 6,
+      "33": 1,
+      "34": 2,
+      "36": 2,
+      "37": 7,
+      "38": 3,
+      "39": 6
+    },
+    "note": "Whole-word lowercase \"contrato\" in body text only; excludes the hyphenated contra-/to and every heading, running header and title."
+  },
+  "contratoInTitles": {
+    "total": 10,
+    "headings": {
+      "total": 2,
+      "byPage": {
+        "8": 1,
+        "15": 1
+      }
+    },
+    "headers": {
+      "total": 8,
+      "byPage": {
+        "8": 1,
+        "10": 1,
+        "12": 1,
+        "14": 1,
+        "16": 1,
+        "18": 1,
+        "20": 1,
+        "22": 1
+      }
+    },
+    "note": "Whole-word \"contrato\" (any case) in heading lines and running headers (chapters 2 and 3 carry it in their titles)."
+  },
+  "acaoPages": [
+    3,
+    10,
+    19,
+    32
+  ],
+  "acaoByPage": {
+    "3": 1,
+    "10": 1,
+    "19": 1,
+    "32": 1
+  },
+  "acaoNote": "Standalone \"ação\" only (whole word). Longer words ending in -ação (notificação, prestação, ...) occur throughout the filler.",
+  "tightTrio": {
+    "page": 16,
+    "pageLabel": 17,
+    "lines": [
+      "Em caso de falta grave, a parte lesada pode invocar a rescisão por carta registada dirigida à",
+      "outra parte, fixando o novo prazo razoável para a reparação e exigindo a indemnização devida,",
+      "sem outras formalidades."
+    ],
+    "joinedWith": " ",
+    "joined": "Em caso de falta grave, a parte lesada pode invocar a rescisão por carta registada dirigida à outra parte, fixando o novo prazo razoável para a reparação e exigindo a indemnização devida, sem outras formalidades.",
+    "terms": [
+      {
+        "term": "rescisão",
+        "offset": 54,
+        "end": 62
+      },
+      {
+        "term": "prazo",
+        "offset": 122,
+        "end": 127
+      },
+      {
+        "term": "indemnização",
+        "offset": 167,
+        "end": 179
+      }
+    ],
+    "spanChars": 125,
+    "foundWithWindow": {
+      "100": false,
+      "250": true,
+      "500": true
+    }
+  },
+  "looseTrio": {
+    "page": 29,
+    "pageLabel": 30,
+    "lines": [
+      "Verificada a falta, a parte interessada pode optar pela rescisão, desde que o faça por escrito e",
+      "indique com clareza o fundamento invocado perante a outra parte. A comunicação deve ser",
+      "enviada para a morada que consta do registo e conservada em arquivo. Quando seja fixado um",
+      "novo prazo, este começa a correr no dia seguinte ao da receção da carta, e a parte faltosa",
+      "pode ainda pedir esclarecimentos sobre o montante da respetiva indemnização."
+    ],
+    "joinedWith": " ",
+    "joined": "Verificada a falta, a parte interessada pode optar pela rescisão, desde que o faça por escrito e indique com clareza o fundamento invocado perante a outra parte. A comunicação deve ser enviada para a morada que consta do registo e conservada em arquivo. Quando seja fixado um novo prazo, este começa a correr no dia seguinte ao da receção da carta, e a parte faltosa pode ainda pedir esclarecimentos sobre o montante da respetiva indemnização.",
+    "terms": [
+      {
+        "term": "rescisão",
+        "offset": 56,
+        "end": 64
+      },
+      {
+        "term": "prazo",
+        "offset": 281,
+        "end": 286
+      },
+      {
+        "term": "indemnização",
+        "offset": 430,
+        "end": 442
+      }
+    ],
+    "spanChars": 386,
+    "foundWithWindow": {
+      "100": false,
+      "250": false,
+      "500": true
+    }
+  },
+  "decoy": {
+    "rescisao": {
+      "page": 33,
+      "pageLabel": 34,
+      "lines": [
+        "A parte interessada pode invocar a rescisão por carta registada dirigida à outra parte."
+      ],
+      "term": "rescisão"
+    },
+    "indemnizacao": {
+      "page": 37,
+      "pageLabel": 38,
+      "lines": [
+        "A parte lesada tem direito à indemnização pelos danos que comprove ter sofrido."
+      ],
+      "term": "indemnização"
+    },
+    "charsBetween": 3557
+  },
+  "crossPage": {
+    "fromPage": 21,
+    "toPage": 22,
+    "lastLine": "Quando for esse o caso, a parte que pretenda fazer cessar",
+    "firstLine": "o acordo deve comunicá-lo por escrito à outra parte, indicando o fundamento invocado.",
+    "phrase": "fazer cessar o acordo",
+    "note": "The page footer and the next page header sit between these two lines in reading order."
+  },
+  "hyphenated": {
+    "contrato": {
+      "page": 24,
+      "pageLabel": 25,
+      "line1": "A parte notificada deve cumprir o que ficou estabelecido no presente contra-",
+      "line2": "to, salvo se a outra parte aceitar por escrito uma solução alternativa.",
+      "word": "contrato",
+      "acceptedForms": [
+        "contrato",
+        "contra-to"
+      ],
+      "countedInContratoTotals": false
+    },
+    "preAviso": {
+      "page": 24,
+      "pageLabel": 25,
+      "line1": "O destinatário pode apresentar a sua resposta até ao final do pré-",
+      "line2": "aviso acordado entre as partes, sem qualquer outra formalidade.",
+      "word": "pré-aviso",
+      "acceptedForms": [
+        "pré-aviso",
+        "préaviso"
+      ],
+      "countedInContratoTotals": false
+    }
+  },
+  "softHyphen": {
+    "page": 25,
+    "pageLabel": 26,
+    "line1": "As partes comprometem-se a cumprir todas as obriga­",
+    "line2": "ções assumidas, sem prejuízo do disposto na cláusula seguinte.",
+    "word": "obrigações",
+    "drawnCodePoint": "U+00AD"
+  },
+  "ligatures": {
+    "page": 26,
+    "pageLabel": 27,
+    "line": "A eﬁcácia do mecanismo e o ﬂuxo das comunicações dependem da boa fé das partes.",
+    "designed": [
+      {
+        "word": "eﬁcácia",
+        "normalized": "eficácia",
+        "ligature": "U+FB01"
+      },
+      {
+        "word": "ﬂuxo",
+        "normalized": "fluxo",
+        "ligature": "U+FB02"
+      }
+    ],
+    "encoding": "Type1 Helvetica, WinAnsiEncoding + /Differences [128 /fi 129 /fl]; byte 0x80 = fi, 0x81 = fl"
+  },
+  "quotesNbsp": {
+    "page": 17,
+    "pageLabel": 18,
+    "line": "O incumprimento só releva quando constitua “justa causa”, nos termos do art. 12.º do código.",
+    "quoted": "“justa causa”",
+    "quotedCodePoints": [
+      "U+201C",
+      "U+201D"
+    ],
+    "nbspPhrase": "art. 12.º",
+    "nbspCodePoint": "U+00A0"
+  },
+  "shortPages": [
+    34,
+    35,
+    36
+  ]
+}

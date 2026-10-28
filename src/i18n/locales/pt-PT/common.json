@@ -1,0 +1,67 @@
+{
+  "common": {
+    "app": {
+      "name": "Rubrica"
+    },
+    "status": {
+      "loading": "A carregar...",
+      "error": "Erro"
+    },
+    "actions": {
+      "retry": "Tentar novamente",
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "confirm": "Confirmar",
+      "delete": "Eliminar",
+      "close": "Fechar",
+      "undo": "Anular",
+      "redo": "Refazer",
+      "open": "Abrir"
+    },
+    "errors": {
+      "encrypted": {
+        "title": "Este PDF está protegido por palavra-passe",
+        "description": "O Rubrica ainda não consegue abrir PDFs encriptados. Remova a palavra-passe com outra ferramenta e tente novamente."
+      },
+      "corrupt": {
+        "title": "Não foi possível ler este ficheiro",
+        "description": "O PDF parece estar danificado ou não é um ficheiro PDF válido."
+      },
+      "io": {
+        "title": "Erro no ficheiro",
+        "description": "{{message}}"
+      },
+      "notFound": {
+        "title": "Ficheiro não encontrado",
+        "description": "O Rubrica não conseguiu encontrar este ficheiro. Pode ter sido movido ou eliminado."
+      },
+      "unsupported": {
+        "title": "Ainda não é suportado",
+        "description": "Esta funcionalidade não está disponível nesta versão do Rubrica."
+      },
+      "fontMissing": {
+        "title": "Tipo de letra indisponível",
+        "description": "O tipo de letra original não está disponível, pelo que o Rubrica utilizou um tipo de letra padrão."
+      },
+      "invalidArg": {
+        "title": "Algo correu mal",
+        "description": "{{message}}"
+      },
+      "internal": {
+        "title": "Erro inesperado",
+        "description": "{{message}}"
+      }
+    },
+    "updater": {
+      "available": {
+        "title": "Atualização disponível",
+        "description": "O Rubrica {{version}} está pronto a instalar.",
+        "action": "Instalar e reiniciar"
+      },
+      "installFailed": {
+        "title": "Não foi possível instalar a atualização",
+        "description": "O Rubrica vai continuar a usar esta versão. Tente novamente mais tarde."
+      }
+    }
+  }
+}
