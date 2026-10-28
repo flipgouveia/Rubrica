@@ -130,8 +130,8 @@ pip install pypdf cryptography     # one-time
 python fixtures/gen-encrypted.py   # regenerate whenever text.pdf's content changes
 ```
 
-**`scanned-source.png`** — needs nothing beyond the Python standard library (same
-struct+zlib-by-hand technique as `scripts/gen-placeholder-icon.py`); only re-run this if you
+**`scanned-source.png`** — needs nothing beyond the Python standard library
+(hand-rolled PNG via struct+zlib); only re-run this if you
 want to change what the simulated scan looks like:
 
 ```sh
