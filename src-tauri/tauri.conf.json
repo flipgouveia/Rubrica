@@ -46,7 +46,7 @@
   },
   "plugins": {
     "updater": {
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDJGOEE2QzAwRTE5RUJFMEUKUldRT3ZwN2hBR3lLTC9PSjNPaDJaNDJqcTBrMXp0VjJTRktjNmxGS2VrVWdwSWZiMzZtMGlRTSsK",
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEJEQkQxNTcyMkU3MEU5RkYKUldULzZYQXVjaFc5dlozWFI2MDVyWkp2QXczZXNmM3dJWG9LbWdmZ3hkbEFFRGNmR2pvWXB0QXkK",
       "endpoints": [
         "https://github.com/flipgouveia/Rubrica/releases/latest/download/latest.json"
       ],

@@ -51,50 +51,78 @@ appears with an **Install and restart** button — nothing downloads or installs
 it. Update packages are signed (see [Update signing](#update-signing-maintainers) below); Rubrica
 verifies that signature before installing anything.
 
+## Verifying your download
+
+Every release lists a `SHA256SUMS.txt` file next to the installer and the portable `.zip`. It holds
+a "fingerprint" (SHA-256) of each file. If the fingerprint of the file you downloaded matches, the
+file is exactly what was published and wasn't corrupted or swapped on the way to you.
+
+1. Download `SHA256SUMS.txt` from the same release page.
+2. Open PowerShell in your Downloads folder and run (use the real file name):
+
+   ```powershell
+   Get-FileHash .\Rubrica_0.2.0_x64-setup.exe -Algorithm SHA256
+   ```
+
+3. Compare the `Hash` it prints with the line for that file in `SHA256SUMS.txt`
+   (upper/lower case doesn't matter). They must be identical.
+
+Releases are also built by this repository's GitHub Actions and carry a signed "build
+provenance" attestation — proof that the file came out of this repo's automated build. If you
+have the [GitHub CLI](https://cli.github.com/), you can check it:
+
+```powershell
+gh attestation verify .\Rubrica_0.2.0_x64-setup.exe -R flipgouveia/Rubrica
+```
+
 ## About the SmartScreen warning
 
-Rubrica's installer isn't signed with a paid code-signing certificate (Authenticode) yet — that's
-a deliberate, deferred decision (see `docs/ARCHITECTURE.md`), not an oversight. The first time you
-run it, Windows SmartScreen will show a blue "Windows protected your PC" screen. This is normal
-for any small, independently-published app without that certificate; it does not mean the file is
-unsafe, only that Windows hasn't seen enough copies of it yet to vouch for the publisher. To
-proceed: click **More info**, then **Run anyway**.
+Rubrica's installer isn't signed with a paid code-signing certificate (Authenticode) yet. The
+first time you run it, Windows SmartScreen may show a blue **"Windows protected your PC"**
+screen. That is normal for small, independent apps: it doesn't mean the file is unsafe, only that
+Windows hasn't seen enough copies of it yet to vouch for the publisher.
 
-If you'd rather verify the download yourself first: build Rubrica from source (see the repository
-README), or compare the release asset against the SHA-256 checksum GitHub shows on the release
-page.
+To continue: click **More info**, then **Run anyway**.
+
+Is it safe? If the SHA-256 checksum of your download matches `SHA256SUMS.txt` (see
+[Verifying your download](#verifying-your-download)) and you got it from this project's Releases
+page, then it is the exact file the project built. If the checksum does *not* match, don't run
+it — download it again, and report it if it keeps happening.
 
 ---
-
 ## Update signing (maintainers)
 
-The updater's signing keypair lives outside the repository — `.secrets/rubrica-updater.key` /
-`.key.pub` locally (gitignored; never commit either half), generated once with:
+The updater's signing keypair lives outside the repository, in the owner's `.secrets/` folder
+(gitignored; never commit either half): `rubrica-updater.key` (private), `rubrica-updater.key.pub`
+(public) and `updater-key-password.txt`. It was generated with:
 
 ```bash
 pnpm tauri signer generate -w .secrets/rubrica-updater.key
 ```
 
-- The **public** key's content is already embedded in `src-tauri/tauri.conf.json` under
-  `plugins.updater.pubkey` — safe to commit, that's the point of a public key.
-- The **private** key and its password must be added as repository secrets (Settings → Secrets
-  and variables → Actions) before `.github/workflows/release.yml` can produce signed updater
-  artifacts:
-  - `TAURI_SIGNING_PRIVATE_KEY` — the full contents of `.secrets/rubrica-updater.key`.
-  - `TAURI_SIGNING_PRIVATE_KEY_PASSWORD` — the password chosen when generating it.
+- The **public** key is embedded in `src-tauri/tauri.conf.json` under `plugins.updater.pubkey`
+  (safe to commit, that's the point of a public key).
+- The **private** key and its password are stored as GitHub Actions secrets, which
+  `.github/workflows/release.yml` reads:
+  - `TAURI_SIGNING_PRIVATE_KEY` — the full contents of `rubrica-updater.key`.
+  - `TAURI_SIGNING_PRIVATE_KEY_PASSWORD` — the key's password.
+  Update them with `gh secret set <NAME> -R flipgouveia/Rubrica < file`.
 
-Losing the private key means every future release must ship a **new** keypair (a new `pubkey` in
-`tauri.conf.json`), and nobody on the old key can auto-update to it — they'd need to reinstall
-manually once. Keep a backup of `.secrets/rubrica-updater.key` and its password somewhere durable
-(a password manager, not the repo).
+**Back up `.secrets/` somewhere safe and offline** (password manager, encrypted USB drive).
+GitHub secrets can't be read back. If the private key or its password is lost, every installed
+copy of Rubrica can no longer auto-update: a new keypair means a new `pubkey`, and nobody on the
+old key can verify updates signed with it — they'd have to reinstall manually once.
 
+Release tags (`v*`) are protected by a repository ruleset: only repository admins can create,
+move or delete them, so only the owner can trigger a release build.
 ## Cutting a release (maintainers)
 
 1. Bump `version` in `src-tauri/tauri.conf.json` (and `Cargo.toml`/`package.json` if you keep
    them in sync), commit.
 2. Tag it and push the tag: `git tag v0.2.0 && git push origin v0.2.0`.
-3. `.github/workflows/release.yml` builds the signed NSIS installer and the portable `.zip`, and
-   opens a **draft** Release with both attached and auto-generated notes. `ci.yml`'s own debug
+3. `.github/workflows/release.yml` builds the updater-signed NSIS installer and the portable `.zip`, writes
+   `SHA256SUMS.txt`, attests build provenance, and opens a **draft** Release with all of them
+   attached (plus `latest.json`) and auto-generated notes. `ci.yml`'s own debug
    bundle (built on every push, unsigned, unrelated to this) is not involved.
 4. Edit the draft's notes if you want, then click **Publish release**. Only then does
    `releases/latest/download/latest.json` — the URL every installed copy of Rubrica polls — start

@@ -20,27 +20,33 @@ on:
 env:
   CARGO_TERM_COLOR: always
 
+# Default to read-only; the release job opts in to what it needs.
+permissions:
+  contents: read
+
 jobs:
   release:
     name: Build, sign, and draft a GitHub Release
     runs-on: windows-latest
     permissions:
-      contents: write
+      contents: write # create/upload to the draft release
+      id-token: write # OIDC token for build-provenance attestations
+      attestations: write # store the attestations
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: Install Rust stable (MSVC)
-        uses: dtolnay/rust-toolchain@stable
+        uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
 
-      - uses: Swatinem/rust-cache@v2
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2
         with:
           workspaces: src-tauri
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
         with:
           version: 9
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 22
           cache: pnpm
@@ -54,7 +60,7 @@ jobs:
       # already points at (releases/latest/download/latest.json), live the
       # moment a human publishes this draft.
       - name: Build and draft release (NSIS, updater-signed)
-        uses: tauri-apps/tauri-action@v0
+        uses: tauri-apps/tauri-action@84b9d35b5fc46c1e45415bdb6144030364f7ebc5 # v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
@@ -64,6 +70,8 @@ jobs:
           releaseName: "Rubrica ${{ github.ref_name }}"
           releaseDraft: true
           prerelease: false
+          # Upload latest.json (the updater manifest) next to the installer + .sig.
+          includeUpdaterJson: true
           args: --config src-tauri/tauri.release.conf.json
 
       # Deliverable 1's other half: a portable .exe (a plain zip — same
@@ -82,7 +90,35 @@ jobs:
           New-Item -ItemType File -Path "$dir/portable.txt" | Out-Null
           Compress-Archive -Path $dir -DestinationPath "$dir.zip"
 
-      - name: Attach the portable .zip to the draft release
+      # Stage the user-facing artifacts, hash them, and attach SHA256SUMS.txt.
+      # Hashes are written as "<hash>  <filename>" (bare names) so users can
+      # check with `Get-FileHash` or `sha256sum -c`.
+      - name: Stage artifacts and write SHA256SUMS.txt
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Path release-assets | Out-Null
+          $setup = Get-ChildItem "src-tauri/target/release/bundle/nsis" -Filter "*-setup.exe"
+          if ($setup.Count -ne 1) { throw "Expected exactly one NSIS setup exe, found $($setup.Count)" }
+          Copy-Item $setup[0].FullName release-assets/
+          Copy-Item rubrica-*-portable-x64.zip release-assets/
+          $lines = Get-ChildItem release-assets -File | Sort-Object Name | ForEach-Object {
+            "$((Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLower())  $($_.Name)"
+          }
+          [IO.File]::WriteAllText("$PWD/release-assets/SHA256SUMS.txt", (($lines -join "`n") + "`n"))
+          Get-Content release-assets/SHA256SUMS.txt
+
+      # Verifiable "built by this repo's CI" proof (`gh attestation verify`).
+      - name: Attest build provenance
+        uses: actions/attest-build-provenance@e8998f949152b193b063cb0ec769d69d929409be # v2
+        with:
+          subject-path: |
+            release-assets/*-setup.exe
+            release-assets/*-portable-x64.zip
+
+      # The installer is already on the release (tauri-action); --clobber keeps
+      # re-runs idempotent. The release stays a DRAFT for the owner to publish.
+      - name: Attach portable .zip and SHA256SUMS.txt to the draft release
+        shell: pwsh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release upload "${{ github.ref_name }}" rubrica-*-portable-x64.zip --clobber
+        run: gh release upload "${{ github.ref_name }}" release-assets/*-portable-x64.zip release-assets/SHA256SUMS.txt --clobber
