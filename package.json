@@ -51,7 +51,7 @@
     "@wdio/local-runner": "^9.4.0",
     "@wdio/mocha-framework": "^9.4.0",
     "@wdio/spec-reporter": "^9.4.0",
-    "edgedriver": "^6.3.1",
+    "edgedriver": "^8.0.0",
     "eslint": "^9.19.0",
     "eslint-plugin-i18next": "^6.1.1",
     "eslint-plugin-react-hooks": "^5.1.0",
