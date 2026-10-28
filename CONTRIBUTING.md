@@ -3,7 +3,7 @@
 Thanks for your interest! Bug reports, ideas and pull requests are all welcome.
 
 - **Bugs and ideas:** open an [issue](https://github.com/flipgouveia/Rubrica/issues). For a bug,
-  say what you did, what you expected, and — if you can share it — attach the PDF.
+  say what you did, what you expected, and attach the PDF if you can share it.
 - **Security problems:** please don't open a public issue; use
   [private vulnerability reporting](https://github.com/flipgouveia/Rubrica/security/advisories/new).
 - **Pull requests:** open them against `main`. Every PR needs CI to pass, and the maintainer
@@ -38,9 +38,9 @@ pnpm install
 
 From here there are two ways to run the app:
 
-- **`pnpm dev`** — a plain browser dev server (Vite) against a TypeScript mock engine (fake
+- **`pnpm dev`:** a plain browser dev server (Vite) against a TypeScript mock engine (fake
   documents). No Rust toolchain needed; handy for UI work.
-- **`pnpm tauri dev`** — the real native Windows app, backed by the real Rust/PDFium engine, with
+- **`pnpm tauri dev`:** the real native Windows app, backed by the real Rust/PDFium engine, with
   hot reload on the frontend.
 
 Other useful scripts (see `package.json`):
@@ -55,7 +55,7 @@ Other useful scripts (see `package.json`):
 | `pnpm i18n:check` | Verifies pt-PT/en locale key parity across every namespace |
 | `pnpm bindings:check` | Fails if `src/ipc/bindings.ts` has drifted from the Rust command surface |
 | `pnpm bindings:generate` | Regenerates `src/ipc/bindings.ts` from the Rust side (tauri-specta) |
-| `pnpm verify:pdf` | Parses every fixture PDF with pdf-lib — half of the portability gate |
+| `pnpm verify:pdf` | Parses every fixture PDF with pdf-lib (half of the portability gate) |
 | `pnpm e2e` | End-to-end suite against a built app (see `e2e/`) |
 
 Rust-side checks (run from `src-tauri/`, or via `cargo ... --manifest-path src-tauri/Cargo.toml`):
@@ -63,16 +63,16 @@ Rust-side checks (run from `src-tauri/`, or via `cargo ... --manifest-path src-t
 
 ## How the code is organised
 
-The UI never talks to PDFium directly — every document mutation goes through Tauri IPC to a Rust
+The UI never talks to PDFium directly: every document mutation goes through Tauri IPC to a Rust
 core that owns the PDFium handle. `src/ipc/index.ts` picks the mock or the real engine
 automatically (mock when not running inside Tauri, or when `VITE_MOCK_ENGINE=1`), so the same UI
-code runs against either backend unchanged. The IPC bindings are generated from Rust — never edit
+code runs against either backend unchanged. The IPC bindings are generated from Rust, so never edit
 `src/ipc/bindings.ts` by hand.
 
 Further reading:
 
-- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — the design and why PDFium was chosen
-- [`agents/CONTRACTS.md`](agents/CONTRACTS.md) — the IPC contract and conventions
-- [`src/chrome/TOOL-API.md`](src/chrome/TOOL-API.md) — how a tool plugs into the UI
-- [`docs/BACKLOG.md`](docs/BACKLOG.md) — known issues and planned work
-- [`docs/PORTABILITY-CHECKLIST.md`](docs/PORTABILITY-CHECKLIST.md) — the manual release check
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md): the design and why PDFium was chosen
+- [`agents/CONTRACTS.md`](agents/CONTRACTS.md): the IPC contract and conventions
+- [`src/chrome/TOOL-API.md`](src/chrome/TOOL-API.md): how a tool plugs into the UI
+- [`docs/BACKLOG.md`](docs/BACKLOG.md): known issues and planned work
+- [`docs/PORTABILITY-CHECKLIST.md`](docs/PORTABILITY-CHECKLIST.md): the manual release check

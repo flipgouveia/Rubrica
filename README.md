@@ -5,7 +5,7 @@
 <h1 align="center">Rubrica</h1>
 
 <p align="center">
-  <strong>A simple, fast PDF editor for Windows — free, offline, and yours.</strong><br>
+  <strong>A simple, fast PDF editor for Windows. Free, offline, and yours.</strong><br>
   Read, search, annotate, fill in, rearrange and edit your PDFs. No account, no subscription, no ads.
 </p>
 
@@ -26,7 +26,7 @@
 - **Free and open source.** No trial, no watermark, no "upgrade to save".
 - **Works offline.** Your documents never leave your computer. Rubrica has no cloud, no account
   and no tracking.
-- **Your PDF stays a normal PDF.** Everything you do — highlights, notes, edits, new pages — is
+- **Your PDF stays a normal PDF.** Everything you do (highlights, notes, edits, new pages) is
   saved inside the file in the standard PDF format, so it looks the same in Acrobat, in your
   browser and on your phone.
 - **Fast, even with big files.** A 500-page document scrolls as smoothly as a 5-page one.
@@ -43,8 +43,8 @@ Most PDF readers only find an exact word. Rubrica can find **ideas**.
 </p>
 
 - **Words near each other.** Search for `termination deadline compensation` in *Proximity* mode
-  and Rubrica finds the passages where all three appear close together — say, within 500
-  characters — even if they're in a different order or split across two pages. The most compact
+  and Rubrica finds the passages where all three appear close together (say, within 500
+  characters), even if they're in a different order or split across two pages. The most compact
   matches come first.
 - **Exact phrases and exclusions.** Put a phrase in quotes (`"notice period"`) to keep it
   together, or add `-word` to skip passages that mention it.
@@ -68,19 +68,19 @@ and back. Click a line of text, type, done.
 - Rubrica reuses the document's own font whenever it can, so your edit blends in. If it ever has
   to use a substitute font, it tells you instead of hiding it.
 - Add new text boxes and images anywhere on a page.
-- Edits are made line by line — Rubrica doesn't reflow whole paragraphs.
+- Edits are made line by line. Rubrica doesn't reflow whole paragraphs.
 
 ## Everything else you'd expect
 
-- **Read comfortably** — smooth zoom, thumbnails, the document's table of contents, multiple
+- **Read comfortably:** smooth zoom, thumbnails, the document's table of contents, multiple
   documents in tabs, printing, and a night mode for reading in the dark (it only changes what you
   see, never the file).
-- **Annotate** — highlight, underline and strike out text, draw freehand, add sticky notes,
+- **Annotate:** highlight, underline and strike out text, draw freehand, add sticky notes,
   shapes, arrows and text boxes.
-- **Organise pages** — drag thumbnails to reorder, rotate, delete, add blank pages, or insert
+- **Organise pages:** drag thumbnails to reorder, rotate, delete, add blank pages, or insert
   pages from another PDF (which is also how you merge files).
-- **Fill in forms** — Rubrica reads every kind of form field (see the limitations below).
-- **Hide information for real** — two separate tools, on purpose:
+- **Fill in forms:** Rubrica reads every kind of form field (see the limitations below).
+- **Hide information for real** with two separate tools, on purpose:
   - **Whiteout** covers something up with a white box. Handy for layout, but the original is
     still underneath.
   - **Redact** actually *removes* the text and images under the area you mark, so nothing
@@ -90,13 +90,13 @@ and back. Click a line of text, type, done.
 
 1. Go to the [latest release](https://github.com/flipgouveia/Rubrica/releases/latest).
 2. Download **`Rubrica_<version>_x64-setup.exe`** (installer) or the **portable `.zip`** (no
-   installation — runs from any folder or USB drive).
+   installation needed; it runs from any folder or USB drive).
 3. Run it. No administrator rights needed.
 
 **About the "Windows protected your PC" warning:** Rubrica's installer isn't code-signed yet, so
 Windows may show this on first run. Click **More info → Run anyway**. Every release publishes
 SHA-256 checksums and a build certificate so you can confirm your download is exactly what this
-project built — the [installation guide](docs/INSTALL.md) shows how.
+project built. The [installation guide](docs/INSTALL.md) shows how.
 
 Rubrica needs **Windows 10 or 11** (64-bit). The installed version checks for updates on startup;
 the portable version never connects to the internet.
@@ -106,13 +106,13 @@ the portable version never connects to the internet.
 Rubrica is young, and we'd rather tell you up front:
 
 - **Forms:** you can view every field and tick **checkboxes**, but text boxes, radio buttons and
-  dropdowns **can't be saved yet** — Rubrica shows a clear *"Not saved"* label on them rather
+  dropdowns **can't be saved yet**. Rubrica shows a clear *"Not saved"* label on them rather
   than silently losing what you typed.
 - **Text editing** works for Latin-alphabet text (including accents). Chinese, Japanese, Korean
   and other scripts can't be edited yet.
 - **Text boxes** added as annotations are always saved at 12 pt in black.
 - **Scanned documents** (images of pages) can be viewed and annotated, but not searched or
-  edited — Rubrica doesn't do text recognition (OCR).
+  edited, because Rubrica doesn't do text recognition (OCR).
 - **Signatures** aren't available yet; they're the next big feature planned.
 
 Not planned: OCR, compression, converting to other formats, creating forms, or anything cloud-based.
@@ -147,8 +147,8 @@ All shortcuts are also listed in Settings.
 
 ## Help and feedback
 
-Found a bug or have an idea? [Open an issue](https://github.com/flipgouveia/Rubrica/issues) —
-attaching the PDF (if you can share it) helps a lot.
+Found a bug or have an idea? [Open an issue](https://github.com/flipgouveia/Rubrica/issues).
+Attaching the PDF (if you can share it) helps a lot.
 
 Want to contribute code? See [CONTRIBUTING.md](CONTRIBUTING.md) for how to build Rubrica and how
 it's put together.
