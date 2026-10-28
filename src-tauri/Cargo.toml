@@ -62,7 +62,7 @@ tauri-plugin-updater = { version = "2", default-features = false, features = ["r
 tauri-plugin-dialog = "2"
 # R7: native Jump List (ICustomDestinationList/IShellLinkW via COM) and the
 # process's Explicit AppUserModelID. Windows-only — see os_integration.rs.
-windows = { version = "0.58", features = [
+windows = { version = "0.61", features = [
   "Win32_UI_Shell",
   "Win32_UI_Shell_Common",
   "Win32_UI_Shell_PropertiesSystem",
