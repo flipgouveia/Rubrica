@@ -97,8 +97,8 @@ importers:
         specifier: ^9.4.0
         version: 9.31.2
       edgedriver:
-        specifier: ^6.3.1
-        version: 6.3.1(supports-color@8.1.1)
+        specifier: ^8.0.0
+        version: 8.0.0(@wdio/logger@9.29.1)
       eslint:
         specifier: ^9.19.0
         version: 9.39.5(jiti@2.7.0)(supports-color@8.1.1)
@@ -1782,6 +1782,10 @@ packages:
     resolution: {integrity: sha512-hYAuHAaWjt0axbofaDL5XUlmrQPsBDcK3f45ApZuh6N+8UGVk26GoGdtGDvcvzahsHytTQ6DtBVXwG9IcCMjjQ==}
     engines: {bun: '>=0.7.0', deno: '>=1.0.0', node: '>=18.0.0'}
 
+  '@zip.js/zip.js@2.24.0':
+    resolution: {integrity: sha512-WlaVKzdqBK+RF3bdiXZWbdCnvGB6PdO4IHC1mn/2Yfl3bASgqUNegnU3+PNg61iecwoPfUi5BgLUPqBukXpyWw==}
+    engines: {bun: '>=0.7.0', deno: '>=1.0.0', node: '>=18.0.0'}
+
   abort-controller@3.0.0:
     resolution: {integrity: sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg==}
     engines: {node: '>=6.5'}
@@ -2217,6 +2221,13 @@ packages:
     resolution: {integrity: sha512-wCL/Ydgt0DPkWecjhhPj2/lnDxsGeHLPKeJYKKMTNol+ULFVg4WaTvxoB19GU4tieM6LSA3vZEdZxmDC0DwIpQ==}
     engines: {node: '>=20.0.0'}
     hasBin: true
+
+  edgedriver@8.0.0:
+    resolution: {integrity: sha512-h4twAKTFILvpjrxfeN1gslvnggztA6Cgb4iHQdLzEq3TivaHHlf6qEETpCgU7+iw9JIWjcveeckrDlbcY28a/A==}
+    engines: {node: '>=22.19.0'}
+    hasBin: true
+    peerDependencies:
+      '@wdio/logger': ^9.29.1 || ^10.0.0
 
   ejs@3.1.10:
     resolution: {integrity: sha512-UeJmFfOrAQS8OJWPZ4qtgHyWExa088/MtK5UEyoJGFH67cDEXkZSviOiKRCZ4Xij0zxI3JECgYs3oKx+AizQBA==}
@@ -5489,6 +5500,8 @@ snapshots:
 
   '@zip.js/zip.js@2.15.0': {}
 
+  '@zip.js/zip.js@2.24.0': {}
+
   abort-controller@3.0.0:
     dependencies:
       event-target-shim: 5.0.1
@@ -5919,6 +5932,13 @@ snapshots:
       which: 6.0.1
     transitivePeerDependencies:
       - supports-color
+
+  edgedriver@8.0.0(@wdio/logger@9.29.1):
+    dependencies:
+      '@wdio/logger': 9.29.1
+      '@zip.js/zip.js': 2.24.0
+      decamelize: 6.0.1
+      undici: 8.12.3
 
   ejs@3.1.10:
     dependencies:
