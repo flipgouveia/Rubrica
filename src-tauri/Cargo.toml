@@ -35,7 +35,7 @@ lru = "0.16"
 # Journal filenames are a stable hash of the document's canonical path
 # (engine::journal), so the same document always maps to the same journal
 # file across app restarts.
-sha2 = "0.10"
+sha2 = "0.11"
 # `Box<dyn Command>` (engine::history) needs to round-trip through the
 # autosave journal as JSON without a central enum of every command type —
 # typetag gives trait-object (de)serialization via a self-registering macro,
