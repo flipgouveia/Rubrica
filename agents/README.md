@@ -1,6 +1,6 @@
 # Rubrica — parallel build orchestration
 
-Eight agents, same discipline that shipped DoItAllTool: **contracts first, exclusive path
+Eight agents, same discipline: **contracts first, exclusive path
 ownership, waves**. What changes here is the parallelism enabler — this is one desktop app, not
 a plugin server, so instead of an SDK test kit the seams are: (a) the full IPC surface stubbed
 in Rust on day 0 with generated TS bindings, and (b) a TypeScript mock engine so UI agents

@@ -398,8 +398,8 @@ async function generateFormPdf() {
 // A single embedded raster image and NOTHING else — no text objects, no
 // fonts, no text layer at all — simulating a scanned document. The source
 // image (fixtures/scanned-source.png) is produced once by the dependency-free
-// fixtures/gen-scanned-source.py (same hand-rolled-PNG technique as
-// scripts/gen-placeholder-icon.py) and committed, so building this fixture
+// fixtures/gen-scanned-source.py (hand-rolled PNG, no Pillow)
+// and committed, so building this fixture
 // via `pnpm fixtures:generate` never requires Python at generation time.
 
 async function generateScannedPdf() {

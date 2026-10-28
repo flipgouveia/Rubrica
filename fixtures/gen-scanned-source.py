@@ -7,7 +7,7 @@ image, once embedded into fixtures/scanned.pdf (by fixtures/generate.mjs),
 gives that fixture no extractable text layer at all, which is the point:
 PDFium has nothing to select or search on it.
 
-Same hand-rolled PNG technique as scripts/gen-placeholder-icon.py (raw IHDR/
+Hand-rolled PNG (raw IHDR/
 IDAT/IEND chunks via struct + zlib, no Pillow). Deterministic: re-running this
 script always produces byte-identical output, so scanned-source.png is
 committed but can be regenerated any time with `python fixtures/gen-scanned-source.py`.

@@ -3,9 +3,8 @@
 A local-first PDF editor for Windows. Open a file, edit it at native speed, save it back where
 it was. No server, no account, no subscription, no telemetry — **the file is the database**.
 
-Working name from Portuguese *rubricar* ("to initial a document"). Companion project to
-[DoItAllTool](#), which keeps every batch/conversion-shaped PDF operation (OCR, compression,
-format conversion) — Rubrica stays focused on direct, hands-on editing of one document at a time.
+Working name from Portuguese *rubricar* ("to initial a document"). Rubrica stays focused on
+direct, hands-on editing of one document at a time.
 
 ## Principles
 
@@ -176,12 +175,10 @@ Full detail lives in `agents/reports/r5-report.md` and `r6-report.md`.
 - **Signatures.** A visual signature (drawn or imported stamp) is the first thing planned after
   v1; qualified digital signatures (Cartão de Cidadão / Chave Móvel Digital, PKCS#11) are planned
   as a separate project later.
-- **"Send to DoItAllTool" handoff** — a way to pass the current document to DoItAllTool for
-  OCR/compression/conversion work Rubrica itself will never do.
 - **Authenticode code signing.** The installer is currently unsigned, so Windows SmartScreen
   shows a warning on first run — see `docs/INSTALL.md` for what that looks like and why.
 
-Never planned, by design: OCR, compression, format conversion (those live in DoItAllTool), form
+Out of scope by design: OCR, compression, format conversion, form
 *creation*, or anything cloud-based.
 
 See `docs/BACKLOG.md` for the complete, prioritized list of open follow-up items.

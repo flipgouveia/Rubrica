@@ -337,16 +337,13 @@ within each group; "Correctness / data-integrity" items are more load-bearing th
 In this explicit order, per `docs/ARCHITECTURE.md`'s "Deferred past v1" section:
 
 1. **Visual signatures** (drawn or imported stamp). The first feature planned after v1.
-2. **A "send to DoItAllTool" handoff** — passing the current document to DoItAllTool for the
-   batch/conversion-shaped work Rubrica itself will never do (OCR, compression, format
-   conversion).
-3. **The Authenticode code-signing decision.** Currently deferred; the installer ships unsigned,
+2. **The Authenticode code-signing decision.** Currently deferred; the installer ships unsigned,
    and Windows SmartScreen shows a first-run warning as a result (see `docs/INSTALL.md`'s "About
    the SmartScreen warning" section). Revisit once there's a certificate/budget decision to make.
 
 Further out, and explicitly **never** planned regardless of how far past v1 the roadmap goes (per
-`docs/ARCHITECTURE.md`): OCR, compression, or format conversion (those stay in DoItAllTool's
-scope permanently), form *creation*, or anything cloud-based. Qualified digital signatures
+`docs/ARCHITECTURE.md`): OCR, compression, or format conversion (permanently out of
+scope), form *creation*, or anything cloud-based. Qualified digital signatures
 (Cartão de Cidadão / Chave Móvel Digital, PKCS#11) are noted in ARCHITECTURE.md as a possible
 future project of their own, separate from and after visual signatures — not part of the
-numbered list above because it was never given a firm position in it, unlike items 1–3.
+numbered list above because it was never given a firm position in it, unlike items 1–2.
