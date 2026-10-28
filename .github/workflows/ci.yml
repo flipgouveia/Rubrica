@@ -17,7 +17,7 @@ jobs:
     name: Rust (fmt, clippy, test)
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Install Rust stable (MSVC)
         uses: dtolnay/rust-toolchain@stable
@@ -32,11 +32,11 @@ jobs:
       # shells out to `node scripts/verify-pdf.mjs` for the pdf-lib half of
       # the portability gate (CONTRACTS §9) — Node + the `pdf-lib` package
       # need to be on this runner for that, not just in the `frontend` job.
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
         with:
           version: 9
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: pnpm
@@ -56,7 +56,7 @@ jobs:
     name: Frontend (lint, typecheck, test, i18n, bindings drift)
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # bindings:check regenerates bindings.ts via `cargo test`, so this job
       # needs the same Rust toolchain as the `rust` job above.
@@ -67,11 +67,11 @@ jobs:
         with:
           workspaces: src-tauri
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
         with:
           version: 9
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: pnpm
@@ -144,7 +144,7 @@ jobs:
     runs-on: windows-latest
     needs: [rust, frontend]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Install Rust stable (MSVC)
         uses: dtolnay/rust-toolchain@stable
@@ -153,11 +153,11 @@ jobs:
         with:
           workspaces: src-tauri
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
         with:
           version: 9
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: pnpm
@@ -168,7 +168,7 @@ jobs:
         run: pnpm tauri build --debug
 
       - name: Upload debug bundle
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: rubrica-debug-bundle-windows
           path: |
@@ -193,7 +193,7 @@ jobs:
     # the step's `conclusion` to success, which is what the job (and its check run) actually reads.
     continue-on-error: true
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Install Rust stable (MSVC)
         uses: dtolnay/rust-toolchain@stable
@@ -202,11 +202,11 @@ jobs:
         with:
           workspaces: src-tauri
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
         with:
           version: 9
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: pnpm
@@ -219,7 +219,7 @@ jobs:
       # this took the first time this workflow was authored.
       - name: Cache tauri-driver
         id: cache-tauri-driver
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: ~/.cargo/bin/tauri-driver.exe
           key: tauri-driver-2.0.6-${{ runner.os }}
@@ -240,7 +240,7 @@ jobs:
 
       - name: Upload e2e artifacts (screenshots, saved PDFs) on failure
         if: steps.e2e.outcome == 'failure'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: e2e-failure-artifacts
           path: |
