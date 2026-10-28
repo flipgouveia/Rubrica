@@ -2,8 +2,7 @@
 
 Local-first PDF editor for Windows. No server, no account, no subscription, no telemetry.
 A file opens, gets edited at native speed, and is saved where it was. **The file is the database.**
-Working name from pt. *rubricar* (to initial a document). Companion project to DoItAllTool
-(which keeps every batch/conversion-shaped PDF operation: OCR, compression, format conversion).
+Working name from pt. *rubricar* (to initial a document).
 
 ## Three principles, enforced by architecture
 
@@ -25,7 +24,7 @@ rejected). Entire stack BSD/MIT/Apache — zero cost, closed-source distribution
 |---|---|
 | PDF engine | **PDFium** via `pdfium-render` (Rust) — one engine for rendering AND editing. Chrome's engine, BSD, prebuilt binaries from bblanchon/pdfium-binaries. Page-object editing APIs are why it beats pdf.js |
 | Shell | **Tauri 2**, Windows-only, WebView2 (ships with Windows 11). Installer ~15 MB |
-| UI | React 19 + TypeScript + Vite; design tokens shared with DoItAllTool's family (Bricolage Grotesque / Instrument Sans / JetBrains Mono, Rubrica's markup-red accent); Tailwind v4 + Radix behavior |
+| UI | React 19 + TypeScript + Vite; design tokens (Bricolage Grotesque / Instrument Sans / JetBrains Mono, Rubrica's markup-red accent); Tailwind v4 + Radix behavior |
 | i18n | From day one: pt-PT default + en, namespace-per-area locale files, no hardcoded UI strings |
 | IPC typing | **tauri-specta**: Rust command/event types are the single source of truth; TS bindings are generated, never hand-written |
 | App state | SQLite (rusqlite) in `%APPDATA%\Rubrica` — recents, prefs, per-doc view state. Documents never copied/imported |
@@ -75,8 +74,8 @@ honest save semantics.
 
 **Deferred past v1 (explicit decisions)**: signatures — visual (drawn/imported stamp) first
 when they come; qualified digital signatures (Cartão de Cidadão / CMD, PKCS#11) as their own
-project later. "Send to DoItAllTool" handoff. **Never**: OCR, compression, conversions (those
-live in DoItAllTool), form creation, cloud anything.
+project later. **Out of scope by design**: OCR, compression, conversions, form creation,
+cloud anything.
 
 ## Repository layout
 

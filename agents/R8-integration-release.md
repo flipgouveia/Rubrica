@@ -3,8 +3,8 @@
 ## Mission
 
 Turn the merged waves into Rubrica 0.1.0. You are the only agent allowed to touch cross-cutting
-seams. DoItAllTool's integration wave (its `agents/reports/a7-report.md`, in the sibling repo)
-found nine integration bugs that no unit suite could catch — expect the same class here: mock-vs-
+seams. Integration waves in projects like this typically surface bugs that no unit suite can
+catch — expect that class here: mock-vs-
 real drift, protocol/URL edge cases, focus and shortcut collisions between tools, i18n gaps.
 Discipline: trivial cross-boundary fixes (≤ ~5 lines) with a note; anything larger is filed
 precisely in your report, not refactored unilaterally.
@@ -58,4 +58,4 @@ consolidation, mock exclusion from production build, dead-flag cleanup); the rel
 - Draft 0.1.0 release with installer + portable artifacts; portability checklist file committed
   with automated columns filled and the manual Acrobat/browser column ready for the owner.
 - Write `agents/reports/r8-report.md` + backlog list (include: visual signatures as the first
-  post-v1 feature, DoItAllTool handoff, Authenticode decision).
+  post-v1 feature, Authenticode decision).
