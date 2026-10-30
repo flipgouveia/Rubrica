@@ -5,6 +5,12 @@ All notable changes to Rubrica are documented in this file. Format follows
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-10-30
+
+First public release. Available as a Windows installer and as a portable `.zip` that runs from
+any folder without installing. Everything below plus the initial build further down ships in
+this release.
+
 ### Added
 
 - **Proximity search.** Switch the search panel to *Proximidade* (or press Alt+P) and type several
@@ -95,10 +101,10 @@ All notable changes to Rubrica are documented in this file. Format follows
   call — rendering, editing, saving, opening, closing, and library init — onto one thread, removing
   that latent crash risk. No user-visible behavior change.
 
-## [0.1.0] — 2026-09-15
+## Initial build (2026-09-15, not published)
 
-First release. A local-first PDF editor for Windows — open a file, edit it, save it back where
-it was, with no server, account, subscription, or telemetry involved.
+First complete build, included in 0.1.0. A local-first PDF editor for Windows: open a file,
+edit it, save it back where it was, with no server, account, subscription, or telemetry involved.
 
 ### Viewer
 
