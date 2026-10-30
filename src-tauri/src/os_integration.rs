@@ -15,8 +15,9 @@ use std::path::{Path, PathBuf};
 use std::sync::Mutex;
 
 use tauri::{AppHandle, Emitter, Listener, Manager, WebviewUrl, WebviewWindowBuilder};
-use windows::core::{Interface, Result as WinResult, HSTRING, PROPVARIANT};
+use windows::core::{Interface, Result as WinResult, HSTRING};
 use windows::Win32::Storage::EnhancedStorage::PKEY_Title;
+use windows::Win32::System::Com::StructuredStorage::PROPVARIANT;
 use windows::Win32::System::Com::{
     CoCreateInstance, CoInitializeEx, CoUninitialize, CLSCTX_INPROC_SERVER,
     COINIT_APARTMENTTHREADED,
