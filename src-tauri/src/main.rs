@@ -29,6 +29,11 @@ fn redirect_portable_app_data() {
 
     let roaming = exe_dir.join("data").join("Roaming");
     let local = exe_dir.join("data").join("Local");
+    // WebView2 resolves its own profile folder through the Windows known-folder
+    // API, not `LOCALAPPDATA`, so without this its ~8 MB browser cache lands in
+    // `%LOCALAPPDATA%\app.rubrica.desktop` even in portable mode. WebView2 reads
+    // this variable in preference to the folder Tauri passes it.
+    let webview = exe_dir.join("data").join("WebView2");
     if std::fs::create_dir_all(&roaming).is_err() || std::fs::create_dir_all(&local).is_err() {
         eprintln!("rubrica: portable.txt found but could not create a local data\\ folder next to the exe; falling back to the normal per-user profile paths");
         return;
@@ -39,6 +44,7 @@ fn redirect_portable_app_data() {
     unsafe {
         std::env::set_var("APPDATA", &roaming);
         std::env::set_var("LOCALAPPDATA", &local);
+        std::env::set_var("WEBVIEW2_USER_DATA_FOLDER", &webview);
         std::env::set_var("RUBRICA_PORTABLE", "1");
     }
 }
