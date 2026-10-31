@@ -57,7 +57,9 @@ On a Windows machine:
 On a machine **without** Rubrica installed:
 
 - [ ] Unzip anywhere (for example a USB drive) and run `Rubrica.exe`.
-- [ ] A `data\` folder appears next to the exe, and nothing is written to `%APPDATA%\Rubrica`.
+- [ ] A `data\` folder appears next to the exe (with `Roaming\`, `Local\` and `WebView2\`
+      inside), nothing is written to `%APPDATA%\Rubrica`, and `%LOCALAPPDATA%\app.rubrica.desktop`
+      stays empty.
 - [ ] Open, edit and save a PDF; close and reopen Rubrica: recents and preferences are kept.
 - [ ] No update check happens.
 
