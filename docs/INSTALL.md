@@ -21,9 +21,10 @@ to keep that data for a future reinstall.
 
 Unzip it anywhere — a USB drive, a network share, a folder with no install step at all — and run
 `Rubrica.exe`. The presence of the `portable.txt` file next to the exe is what makes it portable:
-Rubrica keeps its recent-files list, preferences, and crash-recovery data in a `data\` folder it
-creates right there next to the exe, instead of your Windows profile. Delete the whole folder and
-nothing of Rubrica is left on the machine.
+Rubrica keeps its recent-files list, preferences, crash-recovery data and its built-in browser
+cache in a `data\` folder it creates right there next to the exe, instead of your Windows profile.
+Delete the whole folder and nothing of Rubrica is left on the machine except an empty
+`%LOCALAPPDATA%\app.rubrica.desktop` folder that is created on every launch.
 
 The portable build never checks for updates and has no updater UI at all — grab a new `.zip` from
 Releases when you want to upgrade, and copy your `data\` folder over if you want to keep your
