@@ -9,7 +9,8 @@ import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { isTauri } from "@tauri-apps/api/core";
 import { getCurrentWebview } from "@tauri-apps/api/webview";
-import { FileText, FolderOpen, ScrollText, Settings } from "lucide-react";
+import { ArrowLeft, FileText, FolderOpen, ScrollText, Settings } from "lucide-react";
+import { useViewerStore } from "../viewer/store";
 import { commands, isMockEngine } from "../ipc";
 import type { RecentDoc, RubricaError } from "../ipc/bindings";
 import { Button, IconButton } from "../tokens/components";
@@ -27,6 +28,7 @@ const QUICK_LAUNCH = [
 export function HomeScreen() {
   const { t, i18n } = useTranslation(["screens", "common", "chrome"]);
   const navigate = useAppViewStore((s) => s.navigate);
+  const hasOpenTabs = useViewerStore((s) => s.tabs.length > 0);
   const [recents, setRecents] = useState<RecentDoc[]>([]);
   const [path, setPath] = useState("");
   const [error, setError] = useState<RubricaError | null>(null);
@@ -77,7 +79,15 @@ export function HomeScreen() {
   return (
     <div className="flex h-full flex-col overflow-auto bg-background">
       <header className="flex items-center justify-between border-b border-border px-8 py-5">
-        <h1 className="font-display text-2xl font-semibold text-text">{t("common:common.app.name")}</h1>
+        <div className="flex items-center gap-4">
+          <h1 className="font-display text-2xl font-semibold text-text">{t("common:common.app.name")}</h1>
+          {hasOpenTabs && (
+            <Button variant="secondary" onClick={() => navigate("viewer")}>
+              <ArrowLeft className="h-4 w-4" />
+              {t("screens:screens.home.backToDocument")}
+            </Button>
+          )}
+        </div>
         <IconButton aria-label={t("chrome:chrome.toolbar.settings")} onClick={() => navigate("settings")}>
           <Settings className="h-5 w-5" />
         </IconButton>

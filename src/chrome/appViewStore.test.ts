@@ -10,8 +10,46 @@ function setOpenTabs(count: number) {
 }
 
 beforeEach(() => {
-  useAppViewStore.setState({ view: "home", previousView: "home" });
+  useAppViewStore.setState({ view: "home", previousView: "home", backStack: [], forwardStack: [] });
   setOpenTabs(0);
+});
+
+describe("appViewStore history (mouse back/forward)", () => {
+  it("goes back from Home to the open document, and forward again", () => {
+    setOpenTabs(1);
+    app().navigate("viewer");
+    app().navigate("home");
+    app().historyBack();
+    expect(app().view).toBe("viewer");
+    app().historyForward();
+    expect(app().view).toBe("home");
+  });
+
+  it("does nothing when there is no history", () => {
+    app().historyBack();
+    expect(app().view).toBe("home");
+    app().historyForward();
+    expect(app().view).toBe("home");
+  });
+
+  it("skips a viewer entry whose tabs were all closed", () => {
+    setOpenTabs(1);
+    app().navigate("viewer");
+    app().navigate("home");
+    setOpenTabs(0);
+    app().historyBack();
+    expect(app().view).toBe("home");
+  });
+
+  it("a new navigation clears the forward history", () => {
+    setOpenTabs(1);
+    app().navigate("viewer");
+    app().navigate("home");
+    app().historyBack();
+    app().navigate("settings");
+    app().historyForward();
+    expect(app().view).toBe("settings");
+  });
 });
 
 describe("appViewStore.goBack", () => {

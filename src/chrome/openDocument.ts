@@ -14,7 +14,20 @@ export function basename(path: string): string {
   return parts[parts.length - 1] || path;
 }
 
+/** Windows paths are case-insensitive and may use either separator. */
+function samePath(a: string, b: string): boolean {
+  const normalize = (p: string) => p.replace(/\//g, "\\").toLowerCase();
+  return normalize(a) === normalize(b);
+}
+
 export async function openDocumentByPath(path: string): Promise<OpenDocumentResult> {
+  // Already open: switch to its tab instead of starting a second session on the same file.
+  const existing = useViewerStore.getState().tabs.find((tab) => samePath(tab.info.path, path));
+  if (existing) {
+    useViewerStore.getState().setActiveTab(existing.docId);
+    useAppViewStore.getState().navigate("viewer");
+    return { ok: true, docId: existing.docId };
+  }
   const result = await commands.docOpen(path);
   if (result.status === "error") return { ok: false, error: result.error };
   useViewerStore.getState().openTab(result.data);
