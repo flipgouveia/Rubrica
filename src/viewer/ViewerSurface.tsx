@@ -9,6 +9,7 @@ import type { TabState } from "./store";
 import { useViewerStore } from "./store";
 import { PageCanvas } from "./PageCanvas";
 import { DensityMap } from "./search/DensityMap";
+import { TileLoadingIndicator } from "./TileLoadingIndicator";
 import { clampZoom } from "./types";
 import { zoomedListY, zoomedScrollLeft } from "./zoomAnchor";
 
@@ -143,7 +144,8 @@ export function ViewerSurface({ tab }: ViewerSurfaceProps) {
   }, [topVisibleIndex, docId]);
 
   return (
-    <div className="flex h-full min-w-0 flex-1">
+    <div className="relative flex h-full min-w-0 flex-1">
+      <TileLoadingIndicator docId={docId} />
       <div
         ref={setScrollNode}
         className="relative h-full min-w-0 flex-1 overflow-auto bg-background px-6 py-6"
