@@ -25,12 +25,14 @@ import { Toolbar } from "./Toolbar";
 import { TabsBar } from "./TabsBar";
 import { ToastHost } from "./ToastHost";
 import { useGlobalShortcuts } from "./shortcuts";
+import { useMouseNavigation } from "./useMouseNavigation";
 import { useActiveToolPanel } from "./tool-api";
 
 export function AppShell() {
   useGlobalShortcuts();
   useDocStateSync();
   useSelectionShortcuts();
+  useMouseNavigation();
 
   const view = useAppViewStore((s) => s.view);
   const tabs = useViewerStore((s) => s.tabs);

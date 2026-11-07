@@ -3,6 +3,7 @@
     "home": {
       "dropHint": "Drop a PDF here, or browse for one.",
       "browse": "Browse…",
+      "backToDocument": "Back to document",
       "orTypePath": "Or type a full path",
       "quickLaunch": {
         "text": "Sample text document",

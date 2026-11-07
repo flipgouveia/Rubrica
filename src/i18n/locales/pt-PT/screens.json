@@ -3,6 +3,7 @@
     "home": {
       "dropHint": "Largue um PDF aqui, ou procure um ficheiro.",
       "browse": "Procurar…",
+      "backToDocument": "Voltar ao documento",
       "orTypePath": "Ou escreva um caminho completo",
       "quickLaunch": {
         "text": "Documento de texto de exemplo",
