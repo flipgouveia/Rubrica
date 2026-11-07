@@ -1,8 +1,16 @@
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { act, cleanup, fireEvent, render } from "@testing-library/react";
 import { Tile } from "./Tile";
 import { TRANSPARENT_PIXEL } from "./blankPixel";
 import { useTileLoadingStore } from "./tileLoadingStore";
+
+// The real mock draws on a canvas via `document` asynchronously, which can outlive the test
+// environment. Resolve to "" at once (the canvas-less result), so the tile keeps its stand-in pixel.
+vi.mock("../ipc", () => ({
+  isMockEngine: true,
+  mockTileUrlAsync: () => Promise.resolve(""),
+  realTileUrl: () => "",
+}));
 
 const props = { docId: "d1", page: 0, bucket: 1, x: 0, y: 0, revision: 0, scale: 1 };
 const pending = () => useTileLoadingStore.getState().pending["d1"] ?? 0;
