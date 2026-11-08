@@ -20,6 +20,9 @@
       "commandPalette": "Paleta de comandos",
       "settings": "Definições"
     },
+    "opening": {
+      "title": "A abrir o documento…"
+    },
     "tabs": {
       "untitled": "Sem título",
       "close": "Fechar {{name}}",

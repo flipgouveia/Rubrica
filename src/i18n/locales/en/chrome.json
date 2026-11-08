@@ -20,6 +20,9 @@
       "commandPalette": "Command palette",
       "settings": "Settings"
     },
+    "opening": {
+      "title": "Opening document…"
+    },
     "tabs": {
       "untitled": "Untitled",
       "close": "Close {{name}}",

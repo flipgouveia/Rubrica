@@ -5,6 +5,7 @@
     },
     "status": {
       "loading": "Loading...",
+      "rendering": "Rendering pages…",
       "error": "Error"
     },
     "actions": {

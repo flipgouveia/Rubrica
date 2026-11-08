@@ -19,6 +19,7 @@ import { SettingsScreen } from "../screens/SettingsScreen";
 import { RecoveryDialog } from "../screens/RecoveryDialog";
 import { useAppViewStore } from "./appViewStore";
 import { CommandPalette } from "./CommandPalette";
+import { OpeningOverlay } from "./OpeningOverlay";
 import { usePrefsStore } from "./prefsStore";
 import { SidePanel } from "./SidePanel";
 import { Toolbar } from "./Toolbar";
@@ -73,6 +74,7 @@ export function AppShell() {
         </div>
         {!showViewer && (view === "settings" ? <SettingsScreen /> : <HomeScreen />)}
         <CommandPalette />
+        <OpeningOverlay />
         <RecoveryDialog />
         <ToastHost />
       </div>

@@ -5,6 +5,7 @@
     },
     "status": {
       "loading": "A carregar...",
+      "rendering": "A desenhar páginas…",
       "error": "Erro"
     },
     "actions": {

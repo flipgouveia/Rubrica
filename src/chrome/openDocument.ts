@@ -5,6 +5,7 @@ import type { RubricaError } from "../ipc/bindings";
 import { commands } from "../ipc";
 import { useViewerStore } from "../viewer/store";
 import { useAppViewStore } from "./appViewStore";
+import { useOpeningStore } from "./openingStore";
 
 export type OpenDocumentResult = { ok: true; docId: string } | { ok: false; error: RubricaError };
 
@@ -13,6 +14,8 @@ export function basename(path: string): string {
   const parts = path.split(/[/\\]/);
   return parts[parts.length - 1] || path;
 }
+
+const inFlight = new Map<string, Promise<OpenDocumentResult>>();
 
 /** Windows paths are case-insensitive and may use either separator. */
 function samePath(a: string, b: string): boolean {
@@ -28,9 +31,24 @@ export async function openDocumentByPath(path: string): Promise<OpenDocumentResu
     useAppViewStore.getState().navigate("viewer");
     return { ok: true, docId: existing.docId };
   }
-  const result = await commands.docOpen(path);
-  if (result.status === "error") return { ok: false, error: result.error };
-  useViewerStore.getState().openTab(result.data);
-  useAppViewStore.getState().navigate("viewer");
-  return { ok: true, docId: result.data.docId };
+  // The same file asked for twice while it is still opening (an impatient double click) shares
+  // the one in-flight open instead of starting a second session.
+  const pending = inFlight.get(path);
+  if (pending) return pending;
+  const opening = openFromEngine(path).finally(() => inFlight.delete(path));
+  inFlight.set(path, opening);
+  return opening;
+}
+
+async function openFromEngine(path: string): Promise<OpenDocumentResult> {
+  useOpeningStore.getState().begin(path);
+  try {
+    const result = await commands.docOpen(path);
+    if (result.status === "error") return { ok: false, error: result.error };
+    useViewerStore.getState().openTab(result.data);
+    useAppViewStore.getState().navigate("viewer");
+    return { ok: true, docId: result.data.docId };
+  } finally {
+    useOpeningStore.getState().end(path);
+  }
 }

@@ -1,2 +1,40 @@
 @import "tailwindcss";
 @import "./tokens/tokens.css";
+
+/* Loading feedback: a spinner for "opening document" and a shimmer for page tiles that are
+   still rendering. Both fall back to a static look under prefers-reduced-motion. */
+@keyframes rubrica-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rubrica-fade-in {
+  to {
+    opacity: 1;
+  }
+}
+
+.rubrica-spinner {
+  display: inline-block;
+  animation: rubrica-spin 0.9s linear infinite;
+}
+
+/* Tile loading wheel: invisible for the first 350ms, so tiles that arrive quickly (cache hits,
+   zoom changes) never flash anything. Only genuinely slow tiles fade a spinner in. Transform and
+   opacity only, so it never forces a repaint of the page. */
+.rubrica-tile-loading {
+  opacity: 0;
+  animation: rubrica-fade-in 0.25s ease-out 350ms forwards;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rubrica-spinner {
+    animation: none;
+  }
+  .rubrica-tile-loading {
+    animation: none;
+    opacity: 1;
+  }
+}
